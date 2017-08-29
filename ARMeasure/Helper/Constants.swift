@@ -10,7 +10,7 @@ import Foundation
 import SceneKit
 
 enum Settings {
-    static let isDebugging = true
+    static let isDebugging = false
     static let cancelNoise = true
 }
 

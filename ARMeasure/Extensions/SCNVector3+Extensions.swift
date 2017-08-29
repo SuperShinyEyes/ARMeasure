@@ -143,6 +143,10 @@ extension SCNVector3 {
     
     static let zero = SCNVector3(0,0,0)
     
+    static func ==(v1: SCNVector3, v2: SCNVector3) -> Bool {
+        return v1.x == v2.x && v1.y == v2.y && v1.z == v2.z
+    }
+    
 //    static func /(v: SCNVector3, c: Float) -> SCNVector3 {
 //        let x = v.x / c
 //        let y = v.y / c

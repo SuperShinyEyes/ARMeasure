@@ -263,6 +263,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
          - .featurePoint
          
          */
+        
+        if let _ = hitMeasureNode(touch: touch) {
+            measure.getArea()
+            return
+        }
+        
         let result = sceneView.hitTest(touch.location(in: sceneView), types: [.featurePoint])
         
         guard let hitResult = result.last else { return }
@@ -271,6 +277,23 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
         
         measure.addMeasureNode(newVector: hitVector)
 	}
+    
+    private func hitMeasureNode(touch: UITouch) -> MeasureNode? {
+        let results = sceneView.hitTest(
+            touch.location(in: sceneView), types: []
+        )
+        if let hitResult: ARHitTestResult = results.first {
+            let hitTransform = SCNMatrix4(hitResult.worldTransform)
+            let hitVector = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43)
+            return measure.getMeasureNode(at: hitVector)
+        }
+        print("NO MeasureNode HIT")
+        return nil
+        
+        
+        
+        
+    }
 	
 	override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
 		if virtualObject == nil {
@@ -620,6 +643,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 		if let plane = planes.removeValue(forKey: anchor) {
 			plane.removeFromParentNode()
         }
+    }
+    
+    @IBAction func undo() {
+        measure.undo()
     }
 	
 	func restartPlaneDetection() {

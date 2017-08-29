@@ -29,7 +29,7 @@ class Measure {
     static let sharedInstance = Measure()
 //    private var measureNodesAsList: [SCNNode]
     private var measureElementsAsList = [MeasureElement]()
-    private var measureNodesAsList: [SCNNode] {
+    private var measureNodesAsList: [MeasureNode] {
         return measureElementsAsList.map { $0.node }
     }
     private var _isClosed = false
@@ -60,7 +60,7 @@ class Measure {
     /**
      Refer to deinit() destructor of MeasureElement
      */
-    func undo() {
+    @IBAction func undo() {
         guard let _ = measureElementsAsList.popLast() else {
             return
         }
@@ -91,6 +91,25 @@ class Measure {
         addMeasureAreaLabel(area: area, position: center)
     }
     
+    func contains(node: SCNNode) -> Bool {
+        guard let measureNode = node as? MeasureNode else { return false }
+        
+        return measureNodesAsList.contains(measureNode)
+    }
+    
+    func contains(coordinate: SCNVector3) -> Bool {
+        
+        let result: [MeasureNode] = measureNodesAsList.filter{ $0.position == coordinate}
+        return !result.isEmpty
+    }
+    
+    func getMeasureNode(at coordinate: SCNVector3) -> MeasureNode? {
+        print("Touch @\(coordinate)")
+        measureNodesAsList.forEach{
+            print("node @ \($0.position), distance: \(coordinate.distance(from: $0.position))")
+        }
+        return measureNodesAsList.filter{ $0.position == coordinate}.first
+    }
     
 }
 
