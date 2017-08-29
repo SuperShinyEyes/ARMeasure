@@ -26,6 +26,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 		resetVirtualObject()
         
         measure.delegate = self
+        disableAreaCalculation()
     }
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -46,6 +47,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
     // MARK: ARMeasure / Measure singlton
     var measure = Measure.sharedInstance
     
+    // MARK: "Get Area"
+    @IBOutlet weak var getAreaButton: UIButton!
 	
     // MARK: - ARKit / ARSCNView
     let session = ARSession()
@@ -648,6 +651,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
     @IBAction func undo() {
         measure.undo()
     }
+    
+    @IBAction func getArea() {
+        measure.getArea()
+    }
 	
 	func restartPlaneDetection() {
 		
@@ -914,15 +921,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 
 extension ViewController: MeasureDelegate {
     func enableAreaCalculation() {
-//        mainView.getAreaButton.addTarget(self, action: #selector(getArea), for: .touchUpInside)
-//        mainView.getAreaButton.setTitleColor(.blue, for: .normal)
-//        mainView.getAreaButton.setTitleColor(.black, for: .highlighted)
+        getAreaButton.addTarget(self, action: #selector(getArea), for: .touchUpInside)
+        getAreaButton.setTitleColor(.blue, for: .normal)
+        getAreaButton.setTitleColor(.black, for: .highlighted)
     }
     
     func disableAreaCalculation() {
-//        mainView.getAreaButton.removeTarget(self, action: #selector(getArea), for: .touchUpInside)
-//        mainView.getAreaButton.setTitleColor(.gray, for: .normal)
-//        mainView.getAreaButton.setTitleColor(.gray, for: .highlighted)
+        getAreaButton.removeTarget(self, action: #selector(getArea), for: .touchUpInside)
+        getAreaButton.setTitleColor(.gray, for: .normal)
+        getAreaButton.setTitleColor(.gray, for: .highlighted)
     }
     
     func updateLabel(perimeter: Float, area: Float) {
