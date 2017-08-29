@@ -43,11 +43,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 	
     // MARK: - ARKit / ARSCNView
     let session = ARSession()
-	var sessionConfig: ARSessionConfiguration = ARWorldTrackingSessionConfiguration()
+	var sessionConfig: ARWorldTrackingConfiguration = ARWorldTrackingConfiguration()
 	var use3DOFTracking = false {
 		didSet {
 			if use3DOFTracking {
-				sessionConfig = ARSessionConfiguration()
+				sessionConfig = ARWorldTrackingConfiguration()
 			}
 			sessionConfig.isLightEstimationEnabled = UserDefaults.standard.bool(for: .ambientLightEstimation)
 			session.run(sessionConfig)
@@ -677,7 +677,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 		}
 		
 		DispatchQueue.main.async {
-			self.featurePointCountLabel.text = "Features: \(cloud.count)".uppercased()
+			self.featurePointCountLabel.text = "Features: \(cloud.__count)".uppercased()
 		}
 	}
 	

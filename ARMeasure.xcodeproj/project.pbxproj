@@ -34,7 +34,7 @@
 /* Begin PBXFileReference section */
 		11063F3B1EBE651B0033EE6D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		16DA3C59CAE7D97A9FDD9FA0 /* SampleCode.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
-		3929C4881E89EC2C00E00B60 /* ARKitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3929C4881E89EC2C00E00B60 /* ARMeasure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARMeasure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3929C48D1E89EC2C00E00B60 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3929C4901E89EC2C00E00B60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -48,6 +48,7 @@
 		39C0B9581E9C6B1F003FCA0C /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		39D4A8BD1EA1AF530006EC65 /* PlaneDebugVisualization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaneDebugVisualization.swift; sourceTree = "<group>"; };
 		39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6F17BD191F55783400D67871 /* FocusSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
 		C40FE5231EC239F100732B01 /* Candle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Candle.swift; path = "ARKitExample/Virtual Objects/Candle.swift"; sourceTree = SOURCE_ROOT; };
 		C40FE5241EC239F100732B01 /* Chair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Chair.swift; path = "ARKitExample/Virtual Objects/Chair.swift"; sourceTree = SOURCE_ROOT; };
 		C40FE5251EC239F100732B01 /* Cup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cup.swift; path = "ARKitExample/Virtual Objects/Cup.swift"; sourceTree = SOURCE_ROOT; };
@@ -98,7 +99,7 @@
 		3929C4891E89EC2C00E00B60 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3929C4881E89EC2C00E00B60 /* ARKitExample.app */,
+				3929C4881E89EC2C00E00B60 /* ARMeasure.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,6 +107,7 @@
 		3929C48A1E89EC2C00E00B60 /* ARKitExample */ = {
 			isa = PBXGroup;
 			children = (
+				6F17BD181F55783400D67871 /* UI Elements */,
 				3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */,
 				3929C48D1E89EC2C00E00B60 /* ViewController.swift */,
 				C40DF57B1EC2330700D9D59E /* Virtual Objects */,
@@ -122,6 +124,15 @@
 				39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */,
 			);
 			path = ARKitExample;
+			sourceTree = "<group>";
+		};
+		6F17BD181F55783400D67871 /* UI Elements */ = {
+			isa = PBXGroup;
+			children = (
+				6F17BD191F55783400D67871 /* FocusSquare.swift */,
+			);
+			name = "UI Elements";
+			path = "../../ARMeasure/ARMeasure/UI Elements";
 			sourceTree = "<group>";
 		};
 		9C8A8E986AF37F2203F141AB /* LICENSE */ = {
@@ -156,9 +167,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3929C4871E89EC2C00E00B60 /* ARKitExample */ = {
+		3929C4871E89EC2C00E00B60 /* ARMeasure */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3929C49A1E89EC2C00E00B60 /* Build configuration list for PBXNativeTarget "ARKitExample" */;
+			buildConfigurationList = 3929C49A1E89EC2C00E00B60 /* Build configuration list for PBXNativeTarget "ARMeasure" */;
 			buildPhases = (
 				3929C4841E89EC2C00E00B60 /* Sources */,
 				3929C4851E89EC2C00E00B60 /* Frameworks */,
@@ -168,9 +179,9 @@
 			);
 			dependencies = (
 			);
-			name = ARKitExample;
+			name = ARMeasure;
 			productName = ARKitExample;
-			productReference = 3929C4881E89EC2C00E00B60 /* ARKitExample.app */;
+			productReference = 3929C4881E89EC2C00E00B60 /* ARMeasure.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -191,7 +202,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3929C4831E89EC2C00E00B60 /* Build configuration list for PBXProject "ARKitExample" */;
+			buildConfigurationList = 3929C4831E89EC2C00E00B60 /* Build configuration list for PBXProject "ARMeasure" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -204,7 +215,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3929C4871E89EC2C00E00B60 /* ARKitExample */,
+				3929C4871E89EC2C00E00B60 /* ARMeasure */,
 			);
 		};
 /* End PBXProject section */
@@ -401,7 +412,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3929C4831E89EC2C00E00B60 /* Build configuration list for PBXProject "ARKitExample" */ = {
+		3929C4831E89EC2C00E00B60 /* Build configuration list for PBXProject "ARMeasure" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3929C4981E89EC2C00E00B60 /* Debug */,
@@ -410,7 +421,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3929C49A1E89EC2C00E00B60 /* Build configuration list for PBXNativeTarget "ARKitExample" */ = {
+		3929C49A1E89EC2C00E00B60 /* Build configuration list for PBXNativeTarget "ARMeasure" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3929C49B1E89EC2C00E00B60 /* Debug */,
