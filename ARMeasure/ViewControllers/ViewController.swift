@@ -24,6 +24,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 		setupFocusSquare()
 		updateSettings()
 		resetVirtualObject()
+        
+        measure.delegate = self
     }
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -40,6 +42,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 		super.viewWillDisappear(animated)
 		session.pause()
 	}
+    
+    // MARK: ARMeasure / Measure singlton
+    var measure = Measure.sharedInstance
+    
 	
     // MARK: - ARKit / ARSCNView
     let session = ARSession()
@@ -221,34 +227,49 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 	var currentGesture: Gesture?
 	
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-		guard let object = virtualObject else {
-			return
-		}
-		
-		if currentGesture == nil {
-			currentGesture = Gesture.startGestureFromTouches(touches, self.sceneView, object)
-		} else {
-			currentGesture = currentGesture!.updateGestureFromTouches(touches, .touchBegan)
-		}
-		
-		displayVirtualObjectTransform()
+//        guard let object = virtualObject else {
+//            return
+//        }
+//
+//        if currentGesture == nil {
+//            currentGesture = Gesture.startGestureFromTouches(touches, self.sceneView, object)
+//        } else {
+//            currentGesture = currentGesture!.updateGestureFromTouches(touches, .touchBegan)
+//        }
+//
+//        displayVirtualObjectTransform()
 	}
 	
 	override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-		if virtualObject == nil {
-			return
-		}
-		currentGesture = currentGesture?.updateGestureFromTouches(touches, .touchMoved)
-		displayVirtualObjectTransform()
+//        if virtualObject == nil {
+//            return
+//        }
+//        currentGesture = currentGesture?.updateGestureFromTouches(touches, .touchMoved)
+//        displayVirtualObjectTransform()
 	}
 	
 	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-		if virtualObject == nil {
-			chooseObject(addObjectButton)
-			return
-		}
-		
-		currentGesture = currentGesture?.updateGestureFromTouches(touches, .touchEnded)
+//        if virtualObject == nil {
+//            chooseObject(addObjectButton)
+//            return
+//        }
+//
+//        currentGesture = currentGesture?.updateGestureFromTouches(touches, .touchEnded)
+        guard let touch = touches.first else { return }
+        
+        /** Hit-test can have several options:
+         - .existingPlane
+         - .estimatedHorizontalPlane
+         - .featurePoint
+         
+         */
+        let result = sceneView.hitTest(touch.location(in: sceneView), types: [.featurePoint])
+        
+        guard let hitResult = result.last else { return }
+        let hitTransform = SCNMatrix4(hitResult.worldTransform)
+        let hitVector = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43)
+        
+        measure.addMeasureNode(newVector: hitVector)
 	}
 	
 	override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -862,4 +883,26 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 	func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
 		updateSettings()
 	}
+}
+
+extension ViewController: MeasureDelegate {
+    func enableAreaCalculation() {
+//        mainView.getAreaButton.addTarget(self, action: #selector(getArea), for: .touchUpInside)
+//        mainView.getAreaButton.setTitleColor(.blue, for: .normal)
+//        mainView.getAreaButton.setTitleColor(.black, for: .highlighted)
+    }
+    
+    func disableAreaCalculation() {
+//        mainView.getAreaButton.removeTarget(self, action: #selector(getArea), for: .touchUpInside)
+//        mainView.getAreaButton.setTitleColor(.gray, for: .normal)
+//        mainView.getAreaButton.setTitleColor(.gray, for: .highlighted)
+    }
+    
+    func updateLabel(perimeter: Float, area: Float) {
+//        mainView.setLabelText(perimeter: perimeter, area: area)
+    }
+    
+    var isAreaCalculationAvailable: Bool {
+        return true
+    }
 }
