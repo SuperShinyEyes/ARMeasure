@@ -36,6 +36,8 @@
 		6F87138C1F559CD10088A5ED /* SCNNode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8713891F559CB30088A5ED /* SCNNode+Extensions.swift */; };
 		6F87138D1F559CD10088A5ED /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F87138A1F559CB30088A5ED /* SCNVector3+Extensions.swift */; };
 		6F87138E1F559CD80088A5ED /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F654E331F5596F900DAE3BE /* Constants.swift */; };
+		6F8713901F568E860088A5ED /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 6F87138F1F568E860088A5ED /* Podfile */; };
+		AD24CA6C9C1E9A7A6326F1E0 /* Pods_ARMeasure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AAD0C36121BC3465619718 /* Pods_ARMeasure.framework */; };
 		C41366B91EB80DD400EC054A /* TextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41366B81EB80DD400EC054A /* TextManager.swift */; };
 		C42A71BD1E9C0AF200944367 /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42A71BC1E9C0AF200944367 /* FocusSquare.swift */; };
 		C490DAC41E9AB63400210960 /* VirtualObjectSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C490DAC31E9AB63400210960 /* VirtualObjectSelectionViewController.swift */; };
@@ -78,6 +80,8 @@
 		6F8713881F559CB30088A5ED /* Float+Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Double+Extensions.swift"; sourceTree = "<group>"; };
 		6F8713891F559CB30088A5ED /* SCNNode+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Extensions.swift"; sourceTree = "<group>"; };
 		6F87138A1F559CB30088A5ED /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
+		6F87138F1F568E860088A5ED /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		86AAD0C36121BC3465619718 /* Pods_ARMeasure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARMeasure.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C41366B81EB80DD400EC054A /* TextManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextManager.swift; sourceTree = "<group>"; };
 		C42A71BC1E9C0AF200944367 /* FocusSquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
 		C490DAC31E9AB63400210960 /* VirtualObjectSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VirtualObjectSelectionViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD24CA6C9C1E9A7A6326F1E0 /* Pods_ARMeasure.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,10 +119,13 @@
 			children = (
 				6F87137B1F559BE70088A5ED /* Default-568h@2x.png */,
 				11063F3B1EBE651B0033EE6D /* README.md */,
+				6F87138F1F568E860088A5ED /* Podfile */,
 				3929C48A1E89EC2C00E00B60 /* ARMeasure */,
 				3929C4891E89EC2C00E00B60 /* Products */,
 				CC6CF3D48B06681D66F6DE20 /* Configuration */,
 				9C8A8E986AF37F2203F141AB /* LICENSE */,
+				A76735F2BAA176C6B86AF28A /* Pods */,
+				78CEACA7BB36883A00B5AB5B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -194,12 +202,27 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		78CEACA7BB36883A00B5AB5B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				86AAD0C36121BC3465619718 /* Pods_ARMeasure.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9C8A8E986AF37F2203F141AB /* LICENSE */ = {
 			isa = PBXGroup;
 			children = (
 				C7F76951F8992F473202F831 /* LICENSE.txt */,
 			);
 			path = LICENSE;
+			sourceTree = "<group>";
+		};
+		A76735F2BAA176C6B86AF28A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		C40DF57B1EC2330700D9D59E /* Virtual Objects */ = {
@@ -230,9 +253,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3929C49A1E89EC2C00E00B60 /* Build configuration list for PBXNativeTarget "ARMeasure" */;
 			buildPhases = (
+				6C03A7BC51773549EC7ED549 /* [CP] Check Pods Manifest.lock */,
 				3929C4841E89EC2C00E00B60 /* Sources */,
 				3929C4851E89EC2C00E00B60 /* Frameworks */,
 				3929C4861E89EC2C00E00B60 /* Resources */,
+				7B94060D4DF277825F00421E /* [CP] Embed Pods Frameworks */,
+				18611AC1D9BF40E94F529598 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -284,6 +310,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F8713901F568E860088A5ED /* Podfile in Resources */,
 				3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */,
 				39D8DC1B1E8ADAE600386B05 /* LaunchScreen.storyboard in Resources */,
 				3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */,
@@ -293,6 +320,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		18611AC1D9BF40E94F529598 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ARMeasure/Pods-ARMeasure-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6C03A7BC51773549EC7ED549 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7B94060D4DF277825F00421E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ARMeasure/Pods-ARMeasure-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3929C4841E89EC2C00E00B60 /* Sources */ = {
