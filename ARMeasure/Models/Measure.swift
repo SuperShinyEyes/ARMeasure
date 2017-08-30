@@ -29,7 +29,7 @@ class Measure {
     static let sharedInstance = Measure()
 //    private var measureNodesAsList: [SCNNode]
     private var measureElementsAsList = [MeasureElement]()
-    private var measureNodesAsList: [MeasureNode] {
+    var measureNodesAsList: [MeasureNode] {
         return measureElementsAsList.map { $0.node }
     }
     private var _isClosed = false
@@ -41,6 +41,9 @@ class Measure {
         }
     }
     weak var delegate: MeasureDelegate?
+    var measureNodeWorldCoordinateAsList: [[Float]] {
+        return measureNodesAsList.map{ [$0.position.x, $0.position.y, $0.position.z] }
+    }
     
     
     private init() {

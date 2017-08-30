@@ -10,6 +10,8 @@ import Foundation
 import SceneKit
 import UIKit
 import Photos
+import SwiftyJSON
+
 
 class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentationControllerDelegate, VirtualObjectSelectionViewControllerDelegate {
 	
@@ -46,6 +48,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
     
     // MARK: ARMeasure / Measure singlton
     var measure = Measure.sharedInstance
+    
+    // MARK: Realm
+    var realmManager = RealmManager.sharedInstance
     
     // MARK: "Get Area"
     @IBOutlet weak var getAreaButton: UIButton!
@@ -834,6 +839,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 		switch PHPhotoLibrary.authorizationStatus() {
 		case .authorized:
 			takeScreenshotBlock()
+            realmManager.add(measure: measure)
 		case .restricted, .denied:
 			let title = "Photos access denied"
 			let message = "Please enable Photos access for this application in Settings > Privacy to allow saving screenshots."
@@ -917,6 +923,32 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 	func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
 		updateSettings()
 	}
+    
+    /**
+     Share a single measure session
+     */
+    @IBAction func share(_ sender: UIButton) {
+        let worldCoordinates = measure.measureNodeWorldCoordinateAsList
+        var json: JSON = ["worldCoordinates": worldCoordinates]
+        
+        guard let path = FileManager.default
+            .urls(for: .documentDirectory, in: .userDomainMask).first else {
+                return
+        }
+        
+        // 5
+        let saveFileURL = path.appendingPathComponent("test.json")
+        
+        let data = try! json.rawData()
+        try! data.write(to: saveFileURL, options: .atomic)
+        
+        let activityVC = UIActivityViewController(activityItems: ["measure data", saveFileURL], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.view
+        
+        self.present(activityVC, animated: true, completion: nil)
+    }
+    
+    
 }
 
 extension ViewController: MeasureDelegate {
