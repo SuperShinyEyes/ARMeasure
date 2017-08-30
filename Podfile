@@ -5,5 +5,5 @@ use_frameworks!
 
 target 'ARMeasure' do
 pod 'RealmSwift'
-
+pod 'SwiftyJSON'
 end
