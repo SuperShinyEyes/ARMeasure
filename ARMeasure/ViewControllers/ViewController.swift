@@ -928,21 +928,27 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
      Share a single measure session
      */
     @IBAction func share(_ sender: UIButton) {
+        /// 1. Convert data into JSON
         let worldCoordinates = measure.measureNodeWorldCoordinateAsList
         var json: JSON = ["worldCoordinates": worldCoordinates]
         
+        /// 2. Get path for JSON in local drive
         guard let path = FileManager.default
             .urls(for: .documentDirectory, in: .userDomainMask).first else {
                 return
         }
         
-        // 5
         let saveFileURL = path.appendingPathComponent("test.json")
         
+        /// 3. Write JSON to local drive
         let data = try! json.rawData()
         try! data.write(to: saveFileURL, options: .atomic)
         
-        let activityVC = UIActivityViewController(activityItems: ["measure data", saveFileURL], applicationActivities: nil)
+        
+        /// 4. Get screenshot
+        let screenshot = self.sceneView.snapshot()
+        
+        let activityVC = UIActivityViewController(activityItems: ["measure data", saveFileURL, screenshot], applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = self.view
         
         self.present(activityVC, animated: true, completion: nil)
