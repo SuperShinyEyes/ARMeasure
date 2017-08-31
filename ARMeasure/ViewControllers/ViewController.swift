@@ -922,6 +922,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 	
 	func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
 		updateSettings()
+        
+        var json: JSON =  ["name": "Jack", "age": 25]
+        json["name"] = "Mike"
+        json["age"] = "25" //It's OK to set String
+        json["address"] = "L.A."
 	}
     
     /**
@@ -929,8 +934,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
      */
     @IBAction func share(_ sender: UIButton) {
         /// 1. Convert data into JSON
-        let worldCoordinates = measure.measureNodeWorldCoordinateAsList
-        var json: JSON = ["worldCoordinates": worldCoordinates]
+        let worldCoordinates: [[Float]] = measure.measureNodeWorldCoordinateAsList
+        var json: JSON = [
+            "worldCoordinates": worldCoordinates
+            ]
         
         /// 2. Get path for JSON in local drive
         guard let path = FileManager.default
@@ -940,13 +947,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
         
         let saveFileURL = path.appendingPathComponent("test.json")
         
+        
+        /// 4. Get screenshot
+        let screenshot = self.sceneView.snapshot()
+        let screenshotName: String = Date().iso8601
+        FileManagerWrapper.writeImageToDisk(image: screenshot, imageName: screenshotName, format: .png)
+        json["screenShotName"].stringValue = screenshotName
+        
         /// 3. Write JSON to local drive
         let data = try! json.rawData()
         try! data.write(to: saveFileURL, options: .atomic)
         
         
-        /// 4. Get screenshot
-        let screenshot = self.sceneView.snapshot()
         
         let activityVC = UIActivityViewController(activityItems: ["measure data", saveFileURL, screenshot], applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = self.view

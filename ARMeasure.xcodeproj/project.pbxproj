@@ -19,6 +19,7 @@
 		39C0B95A1E9C6B1F003FCA0C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C0B9581E9C6B1F003FCA0C /* Utilities.swift */; };
 		39D4A8BE1EA1AF530006EC65 /* PlaneDebugVisualization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D4A8BD1EA1AF530006EC65 /* PlaneDebugVisualization.swift */; };
 		39D8DC1B1E8ADAE600386B05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */; };
+		6F3B01171F57F33F00BCC78D /* FileManagerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3B01161F57F33F00BCC78D /* FileManagerWrapper.swift */; };
 		6F3BBE811F56CB4200AEA55E /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3BBE801F56CB4200AEA55E /* RealmManager.swift */; };
 		6F551ED11F5693390085B75C /* RealmModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F551ED01F5693390085B75C /* RealmModels.swift */; };
 		6F654E341F559B1E00DAE3BE /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F654E2B1F5596EB00DAE3BE /* Measure.swift */; };
@@ -65,6 +66,7 @@
 		39C0B9581E9C6B1F003FCA0C /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		39D4A8BD1EA1AF530006EC65 /* PlaneDebugVisualization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaneDebugVisualization.swift; sourceTree = "<group>"; };
 		39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6F3B01161F57F33F00BCC78D /* FileManagerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerWrapper.swift; sourceTree = "<group>"; };
 		6F3BBE801F56CB4200AEA55E /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		6F551ED01F5693390085B75C /* RealmModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModels.swift; sourceTree = "<group>"; };
 		6F654E281F5596C700DAE3BE /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				39C0B9581E9C6B1F003FCA0C /* Utilities.swift */,
 				6F654E331F5596F900DAE3BE /* Constants.swift */,
 				6F3BBE801F56CB4200AEA55E /* RealmManager.swift */,
+				6F3B01161F57F33F00BCC78D /* FileManagerWrapper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				6F654E351F559B2600DAE3BE /* MeasureAreaPlane.swift in Sources */,
 				6F87138E1F559CD80088A5ED /* Constants.swift in Sources */,
 				3929C48E1E89EC2C00E00B60 /* ViewController.swift in Sources */,
+				6F3B01171F57F33F00BCC78D /* FileManagerWrapper.swift in Sources */,
 				C41366B91EB80DD400EC054A /* TextManager.swift in Sources */,
 				39C0B95A1E9C6B1F003FCA0C /* Utilities.swift in Sources */,
 				6F551ED11F5693390085B75C /* RealmModels.swift in Sources */,
