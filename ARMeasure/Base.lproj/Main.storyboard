@@ -51,22 +51,6 @@
                                     <action selector="chooseObject:" destination="BV1-FR-VrT" eventType="touchUpInside" id="r5u-3K-Kd4"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qI1-of-tgS">
-                                <rect key="frame" x="15" y="604" width="48" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="48" id="e3K-8f-4kx"/>
-                                    <constraint firstAttribute="height" constant="48" id="i0u-nn-GIY"/>
-                                </constraints>
-                                <state key="normal" image="shutter">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <state key="selected" image="shutterPressed"/>
-                                <state key="highlighted" image="shutterPressed"/>
-                                <connections>
-                                    <action selector="takeScreenshot" destination="BV1-FR-VrT" eventType="touchUpInside" id="WC9-Ab-ZYV"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j8v-6q-UBb">
                                 <rect key="frame" x="312" y="604" width="48" height="48"/>
                                 <constraints>
@@ -81,8 +65,8 @@
                                     <action selector="showSettings:" destination="BV1-FR-VrT" eventType="touchUpInside" id="tO1-pq-1rM"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xcf-ic-uGo" userLabel="Add Object Button">
-                                <rect key="frame" x="164" y="604" width="48" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xcf-ic-uGo" userLabel="Add Object Button">
+                                <rect key="frame" x="249" y="604" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="48" id="NZv-Ts-4dl"/>
                                     <constraint firstAttribute="height" constant="48" id="Z1M-DD-gjO"/>
@@ -190,9 +174,29 @@
                                     <action selector="getArea" destination="BV1-FR-VrT" eventType="touchUpInside" id="7lP-EL-JTU"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ppK-bb-uQf">
+                                <rect key="frame" x="14" y="596" width="65" height="65"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qI1-of-tgS">
+                                <rect key="frame" x="163" y="604" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="e3K-8f-4kx"/>
+                                    <constraint firstAttribute="height" constant="48" id="i0u-nn-GIY"/>
+                                </constraints>
+                                <state key="normal" image="shutter">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="selected" image="shutterPressed"/>
+                                <state key="highlighted" image="shutterPressed"/>
+                                <connections>
+                                    <action selector="takeScreenshot" destination="BV1-FR-VrT" eventType="touchUpInside" id="WC9-Ab-ZYV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="qI1-of-tgS" firstAttribute="centerX" secondItem="ppK-bb-uQf" secondAttribute="centerX" id="0Ez-3d-bbO"/>
                             <constraint firstItem="SuF-Os-zmb" firstAttribute="trailing" secondItem="E6c-py-dvH" secondAttribute="trailing" id="35g-18-nn3"/>
                             <constraint firstItem="BgI-fb-Vqi" firstAttribute="trailing" secondItem="E6c-py-dvH" secondAttribute="trailing" constant="-15" id="6c1-k7-y99"/>
                             <constraint firstAttribute="bottom" secondItem="E6c-py-dvH" secondAttribute="bottom" id="6h6-BI-mhL"/>
@@ -495,6 +499,70 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xit-vt-Vha" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="741.60000000000002" y="98.50074962518741"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="bh8-On-L5i">
+            <objects>
+                <viewController id="ztA-dH-6Px" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="490-Xc-hsP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2T2-vG-Ocl">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="8dj-HI-epr">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="umG-CG-Hvk"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fjx-GX-0FW">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem systemItem="action" id="exy-6b-5tV"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="jul-Rg-214"/>
+                                    <barButtonItem systemItem="camera" id="ZG8-ZS-KaT"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="3E2-jP-dbe"/>
+                                    <barButtonItem systemItem="trash" id="MUL-sg-0W1"/>
+                                </items>
+                            </toolbar>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7of-lB-mh7">
+                                <rect key="frame" x="0.0" y="44" width="375" height="209"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="209" id="ZAO-GQ-Xrf"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Cdr-IF-X8B">
+                                <rect key="frame" x="16" y="275" width="343" height="348"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="348" id="cb8-9a-AIn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Cdr-IF-X8B" firstAttribute="centerX" secondItem="7of-lB-mh7" secondAttribute="centerX" id="1SY-eN-gd7"/>
+                            <constraint firstItem="Cdr-IF-X8B" firstAttribute="centerX" secondItem="490-Xc-hsP" secondAttribute="centerX" id="1TP-fx-Aml"/>
+                            <constraint firstItem="7of-lB-mh7" firstAttribute="leading" secondItem="Fjx-GX-0FW" secondAttribute="leading" id="AUK-wK-Siw"/>
+                            <constraint firstItem="Cdr-IF-X8B" firstAttribute="centerX" secondItem="2T2-vG-Ocl" secondAttribute="centerX" id="Acc-ei-oNf"/>
+                            <constraint firstItem="7of-lB-mh7" firstAttribute="top" secondItem="2T2-vG-Ocl" secondAttribute="bottom" id="INd-Hw-z1m"/>
+                            <constraint firstItem="Cdr-IF-X8B" firstAttribute="top" secondItem="7of-lB-mh7" secondAttribute="bottom" constant="22" id="Tnf-bU-U4I"/>
+                            <constraint firstItem="7of-lB-mh7" firstAttribute="leading" secondItem="490-Xc-hsP" secondAttribute="leading" id="eOB-u1-ePq"/>
+                            <constraint firstItem="Cdr-IF-X8B" firstAttribute="bottom" secondItem="Fjx-GX-0FW" secondAttribute="top" id="eXf-pP-ddE"/>
+                            <constraint firstItem="Cdr-IF-X8B" firstAttribute="top" secondItem="490-Xc-hsP" secondAttribute="top" constant="275" id="i6q-oA-1la"/>
+                            <constraint firstItem="Cdr-IF-X8B" firstAttribute="leading" secondItem="490-Xc-hsP" secondAttribute="leadingMargin" id="ow4-rb-nDD"/>
+                            <constraint firstItem="7of-lB-mh7" firstAttribute="leading" secondItem="2T2-vG-Ocl" secondAttribute="leading" id="pTy-uc-5fa"/>
+                            <constraint firstItem="Cdr-IF-X8B" firstAttribute="centerX" secondItem="Fjx-GX-0FW" secondAttribute="centerX" id="rQ1-kQ-6Bm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wWM-lQ-1K6"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eTX-eO-PRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="57" y="775"/>
         </scene>
     </scenes>
     <resources>
