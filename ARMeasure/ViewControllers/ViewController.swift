@@ -896,6 +896,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 			plane.updateOcclusionSetting()
 		}
 	}
+    
+    // Image Album VC
+    
 
 	// MARK: - Error handling
 	
