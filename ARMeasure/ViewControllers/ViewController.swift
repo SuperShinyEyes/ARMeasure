@@ -25,7 +25,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
         setupUIControls()
 		setupFocusSquare()
 		updateSettings()
-		resetVirtualObject()
+//        resetVirtualObject()
         
         measure.delegate = self
         disableAreaCalculation()
@@ -813,16 +813,42 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 			})
 		}
 	}
+    
+    
 	
 	@IBOutlet weak var screenshotButton: UIButton!
+    
 	
+    /**
+     Take a screenshot of a measuring session.
+     Screenshot includes:
+         - RGB image (TODO)
+         - RGB image with graphics
+         - World coordinates
+         - Screen coordinates (TODO)
+         - Area (TODO)
+     
+     */
 	@IBAction func takeScreenshot() {
 		guard screenshotButton.isEnabled else {
 			return
 		}
 		
+        
+        /// 4. Get screenshot
+        
+        
+        
 		let takeScreenshotBlock = {
-			UIImageWriteToSavedPhotosAlbum(self.sceneView.snapshot(), nil, nil, nil)
+//            UIImageWriteToSavedPhotosAlbum(self.sceneView.snapshot(), nil, nil, nil)
+            
+            /// Save the screenshot to disk
+            let screenshot = self.sceneView.snapshot()
+            let screenshotName: String = Date().iso8601
+            FileManagerWrapper.writeImageToDisk(image: screenshot, imageName: screenshotName, format: .png)
+            
+            /// Save data to Realm DB.
+            self.realmManager.add(measure: self.measure, screenshotName: screenshotName)
 			DispatchQueue.main.async {
 				// Briefly flash the screen.
 				let flashOverlay = UIView(frame: self.sceneView.frame)
@@ -834,23 +860,27 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 					flashOverlay.removeFromSuperview()
 				})
 			}
+            self.albumButton.setImage(screenshot, for: .normal)
+            
 		}
-		
-		switch PHPhotoLibrary.authorizationStatus() {
-		case .authorized:
-			takeScreenshotBlock()
-            realmManager.add(measure: measure)
-		case .restricted, .denied:
-			let title = "Photos access denied"
-			let message = "Please enable Photos access for this application in Settings > Privacy to allow saving screenshots."
-			textManager.showAlert(title: title, message: message)
-		case .notDetermined:
-			PHPhotoLibrary.requestAuthorization({ (authorizationStatus) in
-				if authorizationStatus == .authorized {
-					takeScreenshotBlock()
-				}
-			})
-		}
+        
+        
+		takeScreenshotBlock()
+//        switch PHPhotoLibrary.authorizationStatus() {
+//        case .authorized:
+//            takeScreenshotBlock()
+//            realmManager.add(measure: measure)
+//        case .restricted, .denied:
+//            let title = "Photos access denied"
+//            let message = "Please enable Photos access for this application in Settings > Privacy to allow saving screenshots."
+//            textManager.showAlert(title: title, message: message)
+//        case .notDetermined:
+//            PHPhotoLibrary.requestAuthorization({ (authorizationStatus) in
+//                if authorizationStatus == .authorized {
+//                    takeScreenshotBlock()
+//                }
+//            })
+//        }
 	}
 		
 	// MARK: - Settings
@@ -898,6 +928,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 	}
     
     // Image Album VC
+    @IBOutlet weak var albumButton: UIButton!
+    @IBAction func showAlbum(_ sender: UIButton) {
+    }
     
 
 	// MARK: - Error handling
@@ -940,7 +973,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
         let worldCoordinates: [[Float]] = measure.measureNodeWorldCoordinateAsList
         var json: JSON = [
             "worldCoordinates": worldCoordinates
-            ]
+        ]
         
         /// 2. Get path for JSON in local drive
         guard let path = FileManager.default

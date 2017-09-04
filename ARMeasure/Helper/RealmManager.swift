@@ -19,11 +19,11 @@ final class MeasureDataList: Object {
 }
 
 final class MeasureData: Object {
-    @objc dynamic var screenshotPath = ""
+    @objc dynamic var screenshotName = ""
     let worldCoordinates = List<Coordinates3D>()
     
     override static func primaryKey() -> String? {
-        return "screenshotPath"
+        return "screenshotName"
     }
 }
 
@@ -86,12 +86,13 @@ class RealmManager {
         }
     }
     
-    func add(measure: Measure) {
+    func add(measure: Measure, screenshotName: String) {
         let measureData = MeasureData()
         
         let datum = self.datum
         try! datum.realm?.write {
             
+            /// 1. Write measure node coordinates
             measure.measureNodesAsList.map {
                 (node: MeasureNode) -> Coordinates3D in
                 return Coordinates3D(value: [
@@ -104,6 +105,11 @@ class RealmManager {
                 /// Add in order
                 measureData.worldCoordinates.insert(c, at: measureData.worldCoordinates.count)
             }
+            
+            /// 2. Write screenshot name
+            measureData.screenshotName = screenshotName
+            
+            /// Add to the measure session data array
             datum.insert(measureData, at: datum.count)
         }
     }
