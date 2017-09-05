@@ -22,6 +22,19 @@ class SessionViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setMostRecentSession()
+        
+    }
+    
+    /**
+     Use case:
+             User enters album and lands on DataView scene.
+             Enters Session scene. Gets no session id from DataViewController
+     */
+    func setMostRecentSession() {
+        if session == nil {
+            session = realmManager.currentSession
+        }
     }
     
     func setupUI() {
