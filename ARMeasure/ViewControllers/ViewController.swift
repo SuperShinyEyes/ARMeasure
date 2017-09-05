@@ -203,12 +203,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 		textManager.blurBackground()
 		textManager.showAlert(title: "Session Interrupted", message: "The session will be reset after the interruption has ended.")
 	}
+    
+    func resetARSession() {
+        textManager.unblurBackground()
+        session.run(sessionConfig, options: [.resetTracking, .removeExistingAnchors])
+        restartExperience(self)
+        textManager.showMessage("RESETTING SESSION")
+    }
 		
 	func sessionInterruptionEnded(_ session: ARSession) {
-		textManager.unblurBackground()
-		session.run(sessionConfig, options: [.resetTracking, .removeExistingAnchors])
-		restartExperience(self)
-		textManager.showMessage("RESETTING SESSION")
+		resetARSession()
 	}
 	
     // MARK: - Ambient Light Estimation
@@ -802,7 +806,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 			self.use3DOFTracking = false
 			
 			self.setupFocusSquare()
-			self.resetVirtualObject()
+//            self.resetVirtualObject()
 			self.restartPlaneDetection()
 			
 			self.restartExperienceButton.setImage(#imageLiteral(resourceName: "restart"), for: [])
@@ -925,6 +929,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
     // MARK:Image Album VC
     @IBOutlet weak var albumButton: UIButton!
     @IBAction func showAlbum(_ sender: UIButton) {
+        Logger.log(message: "Pause ARSession", event: .info)
+        self.session.pause()
         performSegue(withIdentifier: "ShowAlbum", sender: nil)
     }
 
@@ -998,7 +1004,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
     }
     
     @IBAction func returnToMeasuring(segue: UIStoryboardSegue) {
-        
+        /// https://www.andrewcbancroft.com/2015/12/18/working-with-unwind-segues-programmatically-in-swift/#trigger
+        resetARSession()
     }
     
     
