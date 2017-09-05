@@ -647,7 +647,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wWM-lQ-1K6"/>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem systemItem="action" id="m8A-JX-h33"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="H62-Bz-P6B"/>
+                        <barButtonItem systemItem="camera" id="BvU-cv-LPK"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="I69-lR-cQY"/>
+                        <barButtonItem systemItem="trash" id="J61-km-hgV"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Image Title" id="maF-eV-3XA"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="imageView" destination="7of-lB-mh7" id="IQR-E0-jJD"/>
                         <outlet property="textView" destination="Cdr-IF-X8B" id="qx4-M3-W4s"/>
@@ -748,6 +756,14 @@
                             <outlet property="delegate" destination="sNv-10-Fci" id="Uoy-tl-J9I"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem systemItem="action" id="oeh-7l-LYT"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="wrV-Ew-HqM"/>
+                        <barButtonItem systemItem="camera" id="9yv-OR-7S6"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="VMI-kg-3ra"/>
+                        <barButtonItem systemItem="trash" id="53p-W5-t5a"/>
+                    </toolbarItems>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="ztA-dH-6Px" kind="show" identifier="DataView" id="Z0j-9W-9sU"/>
                     </connections>
@@ -930,7 +946,7 @@
                                     <constraint firstAttribute="height" constant="48" id="weQ-kd-Yji"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="paJ-i5-vqA" kind="show" id="PKH-pW-rq5"/>
+                                    <action selector="showAlbum:" destination="NYc-Mp-VuK" eventType="touchUpInside" id="5NA-kQ-K5h"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -975,6 +991,7 @@
                         <outlet property="sceneView" destination="x9c-tu-BqL" id="xfo-jF-vJs"/>
                         <outlet property="screenshotButton" destination="4xP-u4-4D9" id="KgX-bA-Jx1"/>
                         <outlet property="settingsButton" destination="wE9-X7-d4o" id="auN-t3-Mwd"/>
+                        <segue destination="paJ-i5-vqA" kind="show" identifier="ShowAlbum" id="HXt-Vl-IJi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4IE-p1-InV" sceneMemberID="firstResponder"/>
