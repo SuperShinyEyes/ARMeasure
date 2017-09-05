@@ -21,3 +21,6 @@ class MeasureDataAlbumNavigationController: UINavigationController {
         pushViewController(third, animated: false)
     }
 }
+
+class MeasureDataAlbumViewController: UIViewController {
+}

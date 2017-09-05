@@ -650,7 +650,11 @@
                     <toolbarItems>
                         <barButtonItem systemItem="action" id="m8A-JX-h33"/>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="H62-Bz-P6B"/>
-                        <barButtonItem systemItem="camera" id="BvU-cv-LPK"/>
+                        <barButtonItem systemItem="camera" id="BvU-cv-LPK">
+                            <connections>
+                                <segue destination="XyS-iS-tfL" kind="unwind" identifier="returnToMeasuring" unwindAction="returnToMeasuringWithSegue:" id="gWy-rN-AJp"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="I69-lR-cQY"/>
                         <barButtonItem systemItem="trash" id="J61-km-hgV"/>
                     </toolbarItems>
@@ -662,6 +666,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eTX-eO-PRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="XyS-iS-tfL" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2182" y="770"/>
         </scene>
@@ -704,7 +709,11 @@
                     <toolbarItems>
                         <barButtonItem systemItem="action" id="W2h-b1-W9m"/>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="OPT-5m-juJ"/>
-                        <barButtonItem systemItem="camera" id="Wfv-MS-Vii"/>
+                        <barButtonItem systemItem="camera" id="Wfv-MS-Vii">
+                            <connections>
+                                <segue destination="7uo-7w-LaI" kind="unwind" identifier="returnToMeasuring" unwindAction="returnToMeasuringWithSegue:" id="lWb-pY-syu"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="SV5-Cq-i5Y"/>
                         <barButtonItem systemItem="trash" id="jMx-wF-VjF"/>
                     </toolbarItems>
@@ -717,6 +726,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Feo-qw-MjO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="7uo-7w-LaI" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="741.60000000000002" y="770.46476761619192"/>
         </scene>
@@ -759,7 +769,11 @@
                     <toolbarItems>
                         <barButtonItem systemItem="action" id="oeh-7l-LYT"/>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="wrV-Ew-HqM"/>
-                        <barButtonItem systemItem="camera" id="9yv-OR-7S6"/>
+                        <barButtonItem systemItem="camera" id="9yv-OR-7S6">
+                            <connections>
+                                <segue destination="SEX-Vg-b46" kind="unwind" identifier="returnToMeasuring" unwindAction="returnToMeasuringWithSegue:" id="NYJ-Jw-bXa"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="VMI-kg-3ra"/>
                         <barButtonItem systemItem="trash" id="53p-W5-t5a"/>
                     </toolbarItems>
@@ -769,6 +783,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZD8-OG-Ro0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="SEX-Vg-b46" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1480.8" y="769.56521739130437"/>
         </scene>
