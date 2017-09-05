@@ -28,6 +28,7 @@ class DataViewController: UIViewController {
     
     func setupUI() {
         if data == nil {
+            Logger.log(message: "Data is nil", event: .debug)
             print("@DataViewController: data is nil")
             /// DataViewController is called from ARScene album button
             /// so it doesn't have any context. Get the latest data
