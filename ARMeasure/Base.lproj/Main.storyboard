@@ -620,15 +620,11 @@
         <!--Image Title-->
         <scene sceneID="bh8-On-L5i">
             <objects>
-                <viewController storyboardIdentifier="SessionImage" id="ztA-dH-6Px" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Data" id="ztA-dH-6Px" customClass="DataViewController" customModule="ARMeasure" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="490-Xc-hsP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7of-lB-mh7">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="209"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Ib sen" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Cdr-IF-X8B">
                                 <rect key="frame" x="16" y="275" width="343" height="348"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -638,6 +634,10 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7of-lB-mh7">
+                                <rect key="frame" x="0.0" y="64" width="375" height="209"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -648,6 +648,10 @@
                         <viewLayoutGuide key="safeArea" id="wWM-lQ-1K6"/>
                     </view>
                     <navigationItem key="navigationItem" title="Image Title" id="maF-eV-3XA"/>
+                    <connections>
+                        <outlet property="imageView" destination="7of-lB-mh7" id="IQR-E0-jJD"/>
+                        <outlet property="textView" destination="Cdr-IF-X8B" id="qx4-M3-W4s"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eTX-eO-PRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -656,18 +660,31 @@
         <!--Sessions-->
         <scene sceneID="s2o-rJ-YMl">
             <objects>
-                <tableViewController storyboardIdentifier="AllSessions" id="Qld-4B-PRa" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SessionList" id="Qld-4B-PRa" customClass="SessionListViewController" customModule="ARMeasure" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="xoj-Ss-EjX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="CIn-i1-sBN">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Session" id="CIn-i1-sBN">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CIn-i1-sBN" id="x6t-4C-6cA">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqf-6z-tQv">
+                                            <rect key="frame" x="8" y="9" width="52.5" height="26.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Hqf-6z-tQv" firstAttribute="centerY" secondItem="x6t-4C-6cA" secondAttribute="centerY" id="HYV-dV-kCa"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Hqf-6z-tQv" secondAttribute="trailing" constant="20" symbolic="YES" id="Zk1-Qm-zoF"/>
+                                        <constraint firstItem="Hqf-6z-tQv" firstAttribute="leading" secondItem="x6t-4C-6cA" secondAttribute="leading" constant="8" id="mtc-yo-Wum"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -687,26 +704,42 @@
                         <barButtonItem key="rightBarButtonItem" title="Select" id="4QJ-oJ-jDo"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="sNv-10-Fci" kind="show" identifier="SessionView" id="1oP-vV-hLK"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Feo-qw-MjO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="742" y="771"/>
+            <point key="canvasLocation" x="741.60000000000002" y="770.46476761619192"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Session View Controller-->
         <scene sceneID="9Ux-oT-LSS">
             <objects>
-                <tableViewController storyboardIdentifier="Session" id="sNv-10-Fci" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Session" id="sNv-10-Fci" customClass="SessionViewController" customModule="ARMeasure" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pZu-UY-yVC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="y0p-pM-aqn">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Data" id="y0p-pM-aqn">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="y0p-pM-aqn" id="Wjv-Is-qmE">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zj9-X0-e1H">
+                                            <rect key="frame" x="8" y="0.0" width="44" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCg-6B-k5h">
+                                            <rect key="frame" x="60" y="0.0" width="307" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -715,10 +748,13 @@
                             <outlet property="delegate" destination="sNv-10-Fci" id="Uoy-tl-J9I"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="ztA-dH-6Px" kind="show" identifier="DataView" id="Z0j-9W-9sU"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZD8-OG-Ro0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1482" y="770"/>
+            <point key="canvasLocation" x="1480.8" y="769.56521739130437"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="0tm-3t-Aqt">
@@ -894,7 +930,7 @@
                                     <constraint firstAttribute="height" constant="48" id="weQ-kd-Yji"/>
                                 </constraints>
                                 <connections>
-                                    <action selector="showAlbum:" destination="NYc-Mp-VuK" eventType="touchUpInside" id="lu7-8X-VAm"/>
+                                    <segue destination="paJ-i5-vqA" kind="show" id="PKH-pW-rq5"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -948,7 +984,7 @@
         <!--Item-->
         <scene sceneID="jB7-Zg-MYG">
             <objects>
-                <navigationController storyboardIdentifier="SessionAlbumNavigationController" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="paJ-i5-vqA" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SessionAlbumNavigationController" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="paJ-i5-vqA" customClass="MeasureDataAlbumNavigationController" customModule="ARMeasure" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="ILh-8g-Noz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AYH-pf-CyM">

@@ -9,7 +9,24 @@
 import Foundation
 import RealmSwift
 
-final class MeasureDataList: Object {
+/**
+ The highest hierarchy in DB which contains all data
+ */
+final class MeasureSessionList: Object {
+    @objc dynamic var id = ""
+    let sessions = List<MeasureSession>()
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+}
+
+/**
+ Contains one whole session data.
+ One session starts when user starts the app and ends when user exits
+ the app
+ */
+final class MeasureSession: Object {
     @objc dynamic var id = ""
     let datum = List<MeasureData>()
     
@@ -38,8 +55,15 @@ class RealmManager {
     
     static let sharedInstance = RealmManager()
     
+    var currentSession: MeasureSession? {
+        return self.realm.objects(MeasureSessionList.self).first?.sessions.last
+    }
     
-    var datum = List<MeasureData>()
+    /// Current session MeasureData
+    var currentDatum: List<MeasureData>? {
+        return self.realm.objects(MeasureSessionList.self).first?.sessions.last?.datum
+    }
+    
     var notificationToken: NotificationToken!
     var realm: Realm!
     
@@ -58,28 +82,45 @@ class RealmManager {
             do {
                 self.realm = try Realm()
                 
-                if self.realm.objects(MeasureDataList.self).count == 0 {
+                /// Create a session list DB if it doesn't exist.
+                /// It is created only once.
+                if self.realm.objects(MeasureSessionList.self).count == 0 {
                     try! self.realm.write {
-                        let list = MeasureDataList()
-                        list.id = "database"
-                        self.realm.add(list)
+                        let sessionList = MeasureSessionList()
+                        sessionList.id = "database"
+                        self.realm.add(sessionList)
                     }
                     
                 }
                 
-                func updateList() {
-                    if self.datum.realm == nil, let list = self.realm.objects(MeasureDataList.self).first {
-                        self.datum = list.datum
-                    } else {
-                        print("self.items.realm: \(self.datum.realm)")
-                        print("self.realm.objects(TaskList.self).count: \(self.realm.objects(MeasureDataList.self).count)")
-                        print("items not set")
+                /// Create new session at every app start
+                try! self.realm.write {
+                    guard let sessionList = self.realm.objects(MeasureSessionList.self).first else {
+                        return
                     }
-//                    self.tableView.reloadData()
+                    
+                    let session = MeasureSession()
+                    session.id = Date().iso8601
+                    sessionList.sessions.insert(session, at: sessionList.sessions.count)
+                    self.realm.add(sessionList, update: true)
+//                    self.realm.add(session)
                 }
-                updateList()
+                    
                 
-                self.notificationToken = self.realm.addNotificationBlock{ _,_  in updateList()}
+                
+//                func updateList() {
+//                    if self.datum?.realm == nil, let list = self.realm.objects(MeasureSession.self).first {
+//                        self.datum = list.datum
+//                    } else {
+//                        print("self.items.realm: \(self.datum?.realm)")
+//                        print("self.realm.objects(TaskList.self).count: \(self.realm.objects(MeasureSession.self).count)")
+//                        print("items not set")
+//                    }
+////                    self.tableView.reloadData()
+//                }
+//                updateList()
+                
+//                self.notificationToken = self.realm.addNotificationBlock{ _,_  in updateList()}
             } catch {
                 print("Couldn't load Realm")
             }
@@ -87,9 +128,13 @@ class RealmManager {
     }
     
     func add(measure: Measure, screenshotName: String) {
+        guard let datum: List<MeasureData> = self.currentDatum else {
+            print("Current Datum is nil")
+            return
+        }
+        
         let measureData = MeasureData()
         
-        let datum = self.datum
         try! datum.realm?.write {
             
             /// 1. Write measure node coordinates
@@ -107,10 +152,12 @@ class RealmManager {
             }
             
             /// 2. Write screenshot name
+            print("measureData.screenshotName = \(screenshotName)")
             measureData.screenshotName = screenshotName
             
             /// Add to the measure session data array
             datum.insert(measureData, at: datum.count)
+            datum.realm?.add(datum, update: true)
         }
     }
 }

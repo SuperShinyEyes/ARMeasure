@@ -28,6 +28,10 @@
 		6F654E381F559B2600DAE3BE /* MeasureVertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F654E2F1F5596EB00DAE3BE /* MeasureVertex.swift */; };
 		6F654E391F559B2600DAE3BE /* MeasureVertexLengthLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F654E301F5596EB00DAE3BE /* MeasureVertexLengthLabel.swift */; };
 		6F654E3A1F559B2600DAE3BE /* XYZAxisNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F654E311F5596EB00DAE3BE /* XYZAxisNode.swift */; };
+		6F6E7DC11F5D44CF00A0DD0C /* SessionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E7DC01F5D44CF00A0DD0C /* SessionListViewController.swift */; };
+		6F6E7DC31F5D7BF300A0DD0C /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E7DC21F5D7BF300A0DD0C /* SessionViewController.swift */; };
+		6F6F7FF91F5D8584008D2909 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6F7FF81F5D8584008D2909 /* DataViewController.swift */; };
+		6F6F7FFB1F5D8E48008D2909 /* MeasureDataAlbumNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6F7FFA1F5D8E48008D2909 /* MeasureDataAlbumNavigationController.swift */; };
 		6F87137C1F559BE80088A5ED /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F87137B1F559BE70088A5ED /* Default-568h@2x.png */; };
 		6F8713821F559C7B0088A5ED /* Cup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F87137D1F559C7A0088A5ED /* Cup.swift */; };
 		6F8713831F559C7B0088A5ED /* Lamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F87137E1F559C7A0088A5ED /* Lamp.swift */; };
@@ -76,6 +80,10 @@
 		6F654E301F5596EB00DAE3BE /* MeasureVertexLengthLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureVertexLengthLabel.swift; sourceTree = "<group>"; };
 		6F654E311F5596EB00DAE3BE /* XYZAxisNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYZAxisNode.swift; sourceTree = "<group>"; };
 		6F654E331F5596F900DAE3BE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		6F6E7DC01F5D44CF00A0DD0C /* SessionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListViewController.swift; sourceTree = "<group>"; };
+		6F6E7DC21F5D7BF300A0DD0C /* SessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewController.swift; sourceTree = "<group>"; };
+		6F6F7FF81F5D8584008D2909 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
+		6F6F7FFA1F5D8E48008D2909 /* MeasureDataAlbumNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureDataAlbumNavigationController.swift; sourceTree = "<group>"; };
 		6F87137B1F559BE70088A5ED /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6F87137D1F559C7A0088A5ED /* Cup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cup.swift; sourceTree = "<group>"; };
 		6F87137E1F559C7A0088A5ED /* Lamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lamp.swift; sourceTree = "<group>"; };
@@ -170,6 +178,10 @@
 				C490DAC31E9AB63400210960 /* VirtualObjectSelectionViewController.swift */,
 				6F654E281F5596C700DAE3BE /* MainViewController.swift */,
 				3929C48D1E89EC2C00E00B60 /* ViewController.swift */,
+				6F6F7FFA1F5D8E48008D2909 /* MeasureDataAlbumNavigationController.swift */,
+				6F6E7DC01F5D44CF00A0DD0C /* SessionListViewController.swift */,
+				6F6E7DC21F5D7BF300A0DD0C /* SessionViewController.swift */,
+				6F6F7FF81F5D8584008D2909 /* DataViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -415,14 +427,18 @@
 				C4E87DD91EA6B40F002117D6 /* VirtualObject.swift in Sources */,
 				39D4A8BE1EA1AF530006EC65 /* PlaneDebugVisualization.swift in Sources */,
 				6F87138B1F559CD10088A5ED /* Float+Double+Extensions.swift in Sources */,
+				6F6E7DC11F5D44CF00A0DD0C /* SessionListViewController.swift in Sources */,
 				39C0B9591E9C6B1F003FCA0C /* SettingsViewController.swift in Sources */,
 				C490DAC41E9AB63400210960 /* VirtualObjectSelectionViewController.swift in Sources */,
 				C42A71BD1E9C0AF200944367 /* FocusSquare.swift in Sources */,
 				6F654E381F559B2600DAE3BE /* MeasureVertex.swift in Sources */,
 				6F3BBE811F56CB4200AEA55E /* RealmManager.swift in Sources */,
 				3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */,
+				6F6F7FF91F5D8584008D2909 /* DataViewController.swift in Sources */,
+				6F6F7FFB1F5D8E48008D2909 /* MeasureDataAlbumNavigationController.swift in Sources */,
 				6F8713831F559C7B0088A5ED /* Lamp.swift in Sources */,
 				C4FBC02B1EC6438B003F7864 /* ARCameraTrackingState.swift in Sources */,
+				6F6E7DC31F5D7BF300A0DD0C /* SessionViewController.swift in Sources */,
 				6F654E371F559B2600DAE3BE /* MeasureNode.swift in Sources */,
 				6F87138D1F559CD10088A5ED /* SCNVector3+Extensions.swift in Sources */,
 			);

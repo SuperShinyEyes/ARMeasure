@@ -834,12 +834,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 			return
 		}
 		
-        
-        /// 4. Get screenshot
-        
-        
-        
-		let takeScreenshotBlock = {
+        let takeScreenshotBlock = {
 //            UIImageWriteToSavedPhotosAlbum(self.sceneView.snapshot(), nil, nil, nil)
             
             /// Save the screenshot to disk
@@ -927,9 +922,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 		}
 	}
     
-    // Image Album VC
+    // MARK:Image Album VC
     @IBOutlet weak var albumButton: UIButton!
     @IBAction func showAlbum(_ sender: UIButton) {
+        
     }
     
 
@@ -1001,6 +997,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
         
         self.present(activityVC, animated: true, completion: nil)
     }
+    
     
     
 }
