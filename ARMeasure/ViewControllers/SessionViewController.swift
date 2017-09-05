@@ -21,11 +21,13 @@ class SessionViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
     }
     
     func setupUI() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Data")
     }
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return session?.datum.count ?? 0

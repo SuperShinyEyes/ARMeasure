@@ -16,6 +16,7 @@ class SessionListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
     }
     
     func setupUI() {
