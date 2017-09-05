@@ -925,9 +925,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
     // MARK:Image Album VC
     @IBOutlet weak var albumButton: UIButton!
     @IBAction func showAlbum(_ sender: UIButton) {
-        
+        performSegue(withIdentifier: "ShowAlbum", sender: nil)
     }
-    
 
 	// MARK: - Error handling
 	
