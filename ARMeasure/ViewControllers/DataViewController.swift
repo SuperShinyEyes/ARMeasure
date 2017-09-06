@@ -23,25 +23,27 @@ class DataViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        setMostRecentData()
         setupUI()
     }
     
-    func setupUI() {
+    /**
+     Use case:
+             User enters album and lands on DataView scene.
+             Gets no data id from ViewController
+     */
+    func setMostRecentData() {
         if data == nil {
-            Logger.log(message: "Data is nil", event: .debug)
-            print("@DataViewController: data is nil")
-            /// DataViewController is called from ARScene album button
-            /// so it doesn't have any context. Get the latest data
-            let realmManager = RealmManager.sharedInstance
-            let sessionList = realmManager.realm.objects(MeasureSessionList.self).first!
-            data = sessionList.sessions.last!.datum.last
-            data = realmManager.currentDatum!.last
+            data = RealmManager.sharedInstance.currentDatum?.last
         }
-        if let data = data {
-            imageView.image = FileManagerWrapper.getImageFromDisk(name: data.screenshotName)
-        }else {
-            print("@DataViewController: data is still nil")
+    }
+    
+    func setupUI() {
+        guard let data = data else {
+            Logger.log("@DataViewController: data is still nil", event: .error)
+            return
         }
+        imageView.image = FileManagerWrapper.getImageFromDisk(name: data.screenshotName)
 //        for coords in data.worldCoordinates {
 //            coords.
 //        }

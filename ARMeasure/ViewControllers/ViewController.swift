@@ -929,7 +929,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
     // MARK:Image Album VC
     @IBOutlet weak var albumButton: UIButton!
     @IBAction func showAlbum(_ sender: UIButton) {
-        Logger.log(message: "Pause ARSession", event: .info)
+        Logger.log("Pause ARSession", event: .info)
         self.session.pause()
         performSegue(withIdentifier: "ShowAlbum", sender: nil)
     }

@@ -55,20 +55,28 @@ class RealmManager {
     
     static let sharedInstance = RealmManager()
     
+    var sessionList: MeasureSessionList? {
+        return self.realm.objects(MeasureSessionList.self).first
+    }
+    
     var currentSession: MeasureSession? {
-        return self.realm.objects(MeasureSessionList.self).first?.sessions.last
+//        let predicate = NSPredicate(format: "#datum.@count > 0")
+//        return sessionList?.sessions.filter(predicate).last
+        return sessionList?.sessions.last
     }
     
     /// Current session MeasureData
     var currentDatum: List<MeasureData>? {
-        return self.realm.objects(MeasureSessionList.self).first?.sessions.last?.datum
+        return currentSession?.datum
     }
     
-    var notificationToken: NotificationToken!
+    private var sessionID: String
+    private var notificationToken: NotificationToken!
     var realm: Realm!
     
     
     init() {
+        sessionID = Date().iso8601
         setupRealm()
     }
     
@@ -93,19 +101,19 @@ class RealmManager {
                     
                 }
                 
-                /// Create new session at every app start
-                try! self.realm.write {
-                    guard let sessionList = self.realm.objects(MeasureSessionList.self).first else {
-                        return
-                    }
-                    
-                    let session = MeasureSession()
-                    session.id = Date().iso8601
-                    sessionList.sessions.insert(session, at: sessionList.sessions.count)
-                    self.realm.add(sessionList, update: true)
-//                    self.realm.add(session)
-                }
-                    
+//                /// Create new session at every app start
+//                try! self.realm.write {
+//                    guard let sessionList = self.realm.objects(MeasureSessionList.self).first else {
+//                        return
+//                    }
+//
+//                    let session = MeasureSession()
+//                    session.id = Date().iso8601
+//                    sessionList.sessions.insert(session, at: sessionList.sessions.count)
+//                    self.realm.add(sessionList, update: true)
+////                    self.realm.add(session)
+//                }
+                
                 
                 
 //                func updateList() {
@@ -127,12 +135,44 @@ class RealmManager {
         }
     }
     
+    /**
+     A Session created when a new measure is captured
+     */
+    private func createSesseion() {
+        guard currentSession?.id != sessionID,
+            let _ = self.realm else {
+                Logger.log("Unncessary to create a new session", event: .info)
+                return }
+        
+//        DispatchQueue.main.async {
+            do {
+                /// Create new session at every app start
+                try self.realm.write {
+                    guard let sessionList = self.realm.objects(MeasureSessionList.self).first else {
+                        return
+                    }
+                    
+                    let session = MeasureSession()
+                    session.id = self.sessionID
+                    sessionList.sessions.insert(session, at: sessionList.sessions.count)
+                    self.realm.add(sessionList, update: true)
+                    Logger.log("Created a new session", event: .info)
+                }
+            } catch {
+                Logger.log("Couldn't create session", event: .error)
+            }
+        
+//        }
+    }
+    
     func add(measure: Measure, screenshotName: String) {
+        createSesseion()
+        
         guard let datum: List<MeasureData> = self.currentDatum else {
-            print("Current Datum is nil")
+            Logger.log("There's No datum i.e., NO SESSION!", event: .error)
             return
         }
-        
+
         let measureData = MeasureData()
         
         try! datum.realm?.write {
@@ -152,7 +192,7 @@ class RealmManager {
             }
             
             /// 2. Write screenshot name
-            print("measureData.screenshotName = \(screenshotName)")
+            Logger.log("measureData.screenshotName = \(screenshotName)", event: .verbose)
             measureData.screenshotName = screenshotName
             
             /// Add to the measure session data array

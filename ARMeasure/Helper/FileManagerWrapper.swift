@@ -71,8 +71,11 @@ struct FileManagerWrapper {
     static func getImageFromDisk(name: String) -> UIImage? {
         /// https://stackoverflow.com/questions/24181699/how-to-check-if-a-file-exists-in-the-documents-directory-in-swift
         guard let path: String = getPathWithFileName(FileName: name)?.path,
-            let image = UIImage(named: path)
-            else { return nil }
+            let image = UIImage(named: path) else {
+                Logger.log("No image '\(name)'", event: .error)
+                return nil
+                
+        }
         return image
     }
 

@@ -9,10 +9,10 @@
 import Foundation
 
 enum LogEvent: String {
-    case error = "[‼️]"
+    case error = "[☠️ERROR☠️]"
     case info = "[ℹ️]"
-    case debug = "[💬]"
-    case verbose = "[🔬]"
+    case debug = "[💬DEBUG💬]"
+    case verbose = "[😃VERBOSE😃]"
     case warning = "[⚠️]"
     case severe = "[🔥]"
 }
@@ -33,7 +33,7 @@ struct Logger {
         return components.isEmpty ? "" : components.last!
     }
 
-    static func log(message: String,
+    static func log(_ message: String,
                     event: LogEvent,
                     fileName: String = #file,
                     line:Int = #line,
