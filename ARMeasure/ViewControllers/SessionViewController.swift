@@ -23,7 +23,6 @@ class SessionViewController: UITableViewController {
         super.viewDidLoad()
         setupUI()
         setMostRecentSession()
-        
     }
     
     /**
@@ -57,10 +56,12 @@ class SessionViewController: UITableViewController {
         return cell
     }
     
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath),
+        guard let _ = tableView.cellForRow(at: indexPath),
             let data = session?.datum[indexPath.row] else { return }
         selectedData = data
+        
         performSegue(withIdentifier: "DataView", sender: nil)
         
     }

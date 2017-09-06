@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 protocol DataViewControllerDelegate: class {
     func DataViewControllerDidDelete(_ controller: DataViewController)
@@ -49,5 +50,47 @@ class DataViewController: UIViewController {
 //            coords.
 //        }
 //        textView.text = data.worldCoordinates
+    }
+    
+    /**
+     Share a single measure session
+     */
+    @IBAction func share(_ sender: UIBarButtonItem) {
+        guard let data = data,
+            let image = FileManagerWrapper.getImageFromDisk(name: data.screenshotName) else {
+            Logger.log("No data to share", event: .error)
+            return
+        }
+        /// 1. Convert data into JSON
+        let worldCoordinates: [[Float]] = data.worldCoordinates.map { c in
+            return [c.x,c.y,c.z]
+        }
+        Logger.log("worldCoordinates: \(worldCoordinates)", event: .verbose)
+        
+        var json: JSON = [
+            "worldCoordinates": worldCoordinates
+        ]
+        
+        /// 2. Get path for JSON in local drive
+        guard let path = FileManager.default
+            .urls(for: .documentDirectory, in: .userDomainMask).first else {
+                return
+        }
+        
+        let saveFileURL = path.appendingPathComponent("test.json")
+        
+        
+        /// 4. Get screenshot
+        json["screenShotName"].stringValue = data.screenshotName
+        
+        /// 3. Write JSON to local drive
+        let jsonData = try! json.rawData()
+        try! jsonData.write(to: saveFileURL, options: .atomic)
+
+
+        let activityVC = UIActivityViewController(activityItems: ["measure data", saveFileURL, image], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.view
+
+        self.present(activityVC, animated: true, completion: nil)
     }
 }

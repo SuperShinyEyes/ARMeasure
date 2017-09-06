@@ -648,7 +648,11 @@
                         <viewLayoutGuide key="safeArea" id="wWM-lQ-1K6"/>
                     </view>
                     <toolbarItems>
-                        <barButtonItem systemItem="action" id="m8A-JX-h33"/>
+                        <barButtonItem systemItem="action" id="m8A-JX-h33">
+                            <connections>
+                                <action selector="share:" destination="ztA-dH-6Px" id="zpe-Hg-rq3"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="H62-Bz-P6B"/>
                         <barButtonItem systemItem="camera" id="BvU-cv-LPK">
                             <connections>
