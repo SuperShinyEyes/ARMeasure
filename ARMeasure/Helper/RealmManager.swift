@@ -9,6 +9,12 @@
 import Foundation
 import RealmSwift
 
+protocol RealmManagerDelegate: class {
+    func hideShowAlbumButton()
+    func showShowAlbumButton()
+    func updateShowAlbumButtonImage(with image: UIImage)
+}
+
 /**
  The highest hierarchy in DB which contains all data
  */
@@ -70,9 +76,14 @@ class RealmManager {
         return currentSession?.datum
     }
     
+    var recentData: MeasureData? {
+        return currentDatum?.last
+    }
+    
     private var sessionID: String
     private var notificationToken: NotificationToken!
     var realm: Realm!
+    weak var delegate: RealmManagerDelegate?
     
     
     init() {
@@ -86,7 +97,7 @@ class RealmManager {
     
     func setupRealm() {
         
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             do {
                 self.realm = try Realm()
                 
@@ -132,7 +143,7 @@ class RealmManager {
             } catch {
                 print("Couldn't load Realm")
             }
-        }
+//        }
     }
     
     /**
@@ -175,29 +186,41 @@ class RealmManager {
 
         let measureData = MeasureData()
         
-        try! datum.realm?.write {
-            
-            /// 1. Write measure node coordinates
-            measure.measureNodesAsList.map {
-                (node: MeasureNode) -> Coordinates3D in
-                return Coordinates3D(value: [
-                    "x":node.position.x,
-                    "y":node.position.y,
-                    "z":node.position.z]
-                )
-            }.forEach {
-                (c: Coordinates3D) in
-                /// Add in order
-                measureData.worldCoordinates.insert(c, at: measureData.worldCoordinates.count)
+        do {
+            try datum.realm?.write {
+                
+                /// 1. Write measure node coordinates
+                measure.measureNodesAsList.map {
+                    (node: MeasureNode) -> Coordinates3D in
+                    return Coordinates3D(value: [
+                        "x":node.position.x,
+                        "y":node.position.y,
+                        "z":node.position.z]
+                    )
+                    }.forEach {
+                        (c: Coordinates3D) in
+                        /// Add in order
+                        measureData.worldCoordinates.insert(c, at: measureData.worldCoordinates.count)
+                }
+                
+                /// 2. Write screenshot name
+                Logger.log("measureData.screenshotName = \(screenshotName)", event: .verbose)
+                measureData.screenshotName = screenshotName
+                
+                /// Add to the measure session data array
+                datum.insert(measureData, at: datum.count)
+                datum.realm?.add(datum, update: true)
             }
-            
-            /// 2. Write screenshot name
-            Logger.log("measureData.screenshotName = \(screenshotName)", event: .verbose)
-            measureData.screenshotName = screenshotName
-            
-            /// Add to the measure session data array
-            datum.insert(measureData, at: datum.count)
-            datum.realm?.add(datum, update: true)
+        } catch {
+            Logger.log("MeasureData Addition Failed", event: .severe)
+            return
         }
+        
+        if let image = FileManagerWrapper.getImageFromDisk(name: screenshotName) {
+            self.delegate?.updateShowAlbumButtonImage(with: image)
+        } else {
+            Logger.log("Added MeasureData but couldn't find its image from disk", event: .severe)
+        }
+        
     }
 }

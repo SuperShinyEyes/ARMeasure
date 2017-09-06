@@ -13,6 +13,7 @@ import Photos
 import SwiftyJSON
 
 
+
 class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentationControllerDelegate, VirtualObjectSelectionViewControllerDelegate {
 	
     // MARK: - Main Setup & View Controller methods
@@ -25,9 +26,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
         setupUIControls()
 		setupFocusSquare()
 		updateSettings()
+        setupShowAlbumButton()
 //        resetVirtualObject()
         
         measure.delegate = self
+        realmManager.delegate = self
         disableAreaCalculation()
     }
 
@@ -859,7 +862,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 					flashOverlay.removeFromSuperview()
 				})
 			}
-            self.albumButton.setImage(screenshot, for: .normal)
+//            self.albumButton.setImage(screenshot, for: .normal)
             
 		}
         
@@ -932,6 +935,21 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
         Logger.log("Pause ARSession", event: .info)
         self.session.pause()
         performSegue(withIdentifier: "ShowAlbum", sender: nil)
+    }
+    
+    private func setupShowAlbumButton() {
+        guard let data = realmManager.recentData else {
+            Logger.log("Hide ShowAlbumButton🖼", event: .verbose)
+            hideShowAlbumButton()
+            return
+        }
+        
+        guard let image = FileManagerWrapper.getImageFromDisk(name: data.screenshotName) else {
+            return
+        }
+        
+        updateShowAlbumButtonImage(with: image)
+        
     }
 
 	// MARK: - Error handling
@@ -1030,5 +1048,20 @@ extension ViewController: MeasureDelegate {
     
     var isAreaCalculationAvailable: Bool {
         return true
+    }
+}
+
+extension ViewController: RealmManagerDelegate {
+    func hideShowAlbumButton() {
+        self.albumButton.isHidden = true
+    }
+    
+    func showShowAlbumButton() {
+        self.albumButton.isHidden = false
+    }
+    
+    func updateShowAlbumButtonImage(with image: UIImage){
+        showShowAlbumButton()
+        self.albumButton.setImage(image, for: .normal)
     }
 }
