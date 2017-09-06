@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import SceneKit
 
 protocol RealmManagerDelegate: class {
     func hideShowAlbumButton()
@@ -44,6 +45,7 @@ final class MeasureSession: Object {
 final class MeasureData: Object {
     @objc dynamic var screenshotName = ""
     let worldCoordinates = List<Coordinates3D>()
+    let screenCoordinates = List<Coordinates2D>()
     
     override static func primaryKey() -> String? {
         return "screenshotName"
@@ -56,6 +58,10 @@ final class Coordinates3D: Object {
     @objc dynamic var z: Float = 0.0
 }
 
+final class Coordinates2D: Object {
+    @objc dynamic var x: Float = 0.0
+    @objc dynamic var y: Float = 0.0
+}
 
 class RealmManager {
     
@@ -183,8 +189,17 @@ class RealmManager {
             Logger.log("There's No datum i.e., NO SESSION!", event: .error)
             return
         }
+        
+        guard let sceneView = measure.delegate?.sceneView else {
+            Logger.log("There's SceneView: Cannot add to Realm!", event: .error)
+            return
+        }
 
         let measureData = MeasureData()
+        
+        let screenCoordinates: [SCNVector3] = measure.measureNodesAsList.map {
+            return sceneView.projectPoint($0.position)
+        }
         
         do {
             try datum.realm?.write {
@@ -206,6 +221,20 @@ class RealmManager {
                 /// 2. Write screenshot name
                 Logger.log("measureData.screenshotName = \(screenshotName)", event: .verbose)
                 measureData.screenshotName = screenshotName
+                
+                /// 3. Write screen coordinates
+                screenCoordinates.map {
+                    (v: SCNVector3) -> Coordinates2D in
+                    return Coordinates2D(value: [
+                        "x":v.x,
+                        "y":v.y
+                        ]
+                    )
+                    }.forEach {
+                        (c: Coordinates2D) in
+                        /// Add in order
+                        measureData.screenCoordinates.insert(c, at: measureData.screenCoordinates.count)
+                }
                 
                 /// Add to the measure session data array
                 datum.insert(measureData, at: datum.count)

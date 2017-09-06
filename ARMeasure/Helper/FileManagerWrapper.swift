@@ -24,14 +24,16 @@ enum JPEGQuality: CGFloat {
 
 struct FileManagerWrapper {
     
-    static func getPathWithFileName(FileName name: String) -> URL? {
+    static func getPathWithFileName(FileName name: String, format: String = "") -> URL? {
         guard let path = FileManager.default.urls(
             for: .documentDirectory,
             in: .userDomainMask).first
             else { return nil }
         
-        return path.appendingPathComponent(name)
+        return path.appendingPathComponent(name + format)
     }
+    
+    
     static func writeImageToDisk(image: UIImage, imageName: String, format: ImageFormat, jpegQuality: JPEGQuality = .good) {
         guard let url = getPathWithFileName(FileName: imageName + format.rawValue) else {
             print("@writeImageToDisk: url doesn't exist")
