@@ -34,31 +34,41 @@ import SwiftyJSON
  */
 class JSONManager {
     static let sharedInstance = JSONManager()
-    let FILENAME = "data.json"
+    let mainJSONFilename = "data.json"
     
-    var json: JSON? {
-        return FileManagerWrapper.getJSONFromDisk(name: FILENAME)
+    private var _mainJSON: JSON = []
+    var mainJSON: JSON {
+        return _mainJSON
+    }
+    
+    var jsonTemplate: JSON {
+        return JSON([
+            "data": []
+            ])
     }
     
     private init() {
         setupJSON()
     }
     
-    func setupJSON() {
-        guard self.json == nil else { return }
-        
-        let json: JSON = [
-            "data": []
-        ]
-        FileManagerWrapper.writeJSONToDisk(json: json, name: FILENAME)
+    private func setupJSON() {
+        if let mainJSON = FileManagerWrapper.getJSONFromDisk(name: mainJSONFilename) {
+            self._mainJSON = mainJSON
+        } else {
+            let json: JSON = [
+                "data": []
+            ]
+            self._mainJSON = json
+        }
     }
     
     func updateMainJSON(data: MeasureData) {
-        guard let mainJSON = self.json else {
-            Logger.log("Can't update main jSON. Couldn't load it.", event: .error)
-            return }
-        let json = convert(data: data)
-        mainJSON["data"]
+        let newJSON: JSON = [
+            "data": [convert(data: data)]
+        ]
+        guard let updatedJSON = append(left: _mainJSON, right: newJSON) else { return }
+        _mainJSON = updatedJSON
+        Logger.log("_mainJSON size: \(_mainJSON["data"].arrayObject?.count)", event: .verbose)
         
     }
     
@@ -97,6 +107,16 @@ class JSONManager {
         return json
         
 //        }
+    }
+    
+    func flush() {
+        _mainJSON = jsonTemplate
+        saveMainJSON()
+    }
+    
+    
+    func saveMainJSON() {
+        FileManagerWrapper.writeJSONToDisk(json: _mainJSON, name: mainJSONFilename)
     }
     
     

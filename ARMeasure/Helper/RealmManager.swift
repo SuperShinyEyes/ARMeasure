@@ -222,6 +222,10 @@ class RealmManager {
             return
         }
         
+//        DispatchQueue.main.async {
+            JSONManager.sharedInstance.updateMainJSON(data: measureData)
+//        }
+        
         if let image = FileManagerWrapper.getImageFromDisk(name: screenshotName) {
             self.delegate?.updateShowAlbumButtonImage(with: image)
         } else {

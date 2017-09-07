@@ -13,6 +13,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 
 	// Nothing to do here. See ViewController for primary app features.
-
+    func applicationWillTerminate(_ application: UIApplication) {
+//        JSONManager.sharedInstance.saveMainJSON()
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        JSONManager.sharedInstance.saveMainJSON()
+    }
 }
 

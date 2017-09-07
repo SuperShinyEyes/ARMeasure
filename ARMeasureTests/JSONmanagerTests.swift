@@ -24,10 +24,12 @@ class JSONmanagerTests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+        jm.flush()
+        
     }
     
     func testSetupJSON() {
-        XCTAssertNotNil(jm.json, "Main JSON doesn't exist")
+        XCTAssertNotNil(jm.mainJSON, "Main JSON doesn't exist")
     }
     
     func testAppend() {
@@ -92,6 +94,45 @@ class JSONmanagerTests: XCTestCase {
         
         XCTAssertTrue(merged["data"].exists(), "Data exists")
         XCTAssertEqual(merged2["data"].arrayObject?.count, 3)
+        
+    }
+    
+    private func getRandomMeasureData() -> MeasureData {
+        let m1 = MeasureData()
+        m1.screenshotName = String(Int.randomPositive)
+        m1.worldCoordinates.append(Coordinates3D(value: [
+            "x":Int.randomPositive,
+            "y":Int.randomPositive,
+            "z":Int.randomPositive]
+        ))
+        m1.screenCoordinates.append(Coordinates2D(value: [
+            "x":Int.randomPositive,
+            "y":Int.randomPositive]
+        ))
+        
+        return m1
+    }
+    
+    func testUpdateMainJSON() {
+        let m1 = getRandomMeasureData()
+        let m2 = getRandomMeasureData()
+        jm.updateMainJSON(data: m1)
+        jm.updateMainJSON(data: m2)
+        
+        XCTAssertEqual(jm.mainJSON["data"].arrayObject?.count, 2)
+    }
+    
+    func testSaveMainJSON() {
+        
+        let m1 = getRandomMeasureData()
+        let m2 = getRandomMeasureData()
+
+
+        jm.updateMainJSON(data: m1)
+        jm.updateMainJSON(data: m2)
+        jm.saveMainJSON()
+        let mainJSON = FileManagerWrapper.getJSONFromDisk(name: jm.mainJSONFilename)!
+        XCTAssertEqual(mainJSON["data"].arrayObject?.count, 2)
         
     }
     
