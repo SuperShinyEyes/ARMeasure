@@ -44,7 +44,11 @@
 		6F87138E1F559CD80088A5ED /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F654E331F5596F900DAE3BE /* Constants.swift */; };
 		6F8713901F568E860088A5ED /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 6F87138F1F568E860088A5ED /* Podfile */; };
 		6FC8904C1F5EDEAA00573B43 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC8904B1F5EDEAA00573B43 /* Logger.swift */; };
+		6FCE0E641F60422000C17BB4 /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE0E631F60422000C17BB4 /* JSONManager.swift */; };
+		6FCE0E6C1F6199F000C17BB4 /* ARMeasureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE0E6B1F6199F000C17BB4 /* ARMeasureTests.swift */; };
+		6FCE0E741F619A2E00C17BB4 /* JSONmanagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE0E731F619A2E00C17BB4 /* JSONmanagerTests.swift */; };
 		AD24CA6C9C1E9A7A6326F1E0 /* Pods_ARMeasure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AAD0C36121BC3465619718 /* Pods_ARMeasure.framework */; };
+		B6A4E0298FDC0B7CCD3847A5 /* Pods_ARMeasureTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 014CF645BF585EC9EDEF4389 /* Pods_ARMeasureTests.framework */; };
 		C41366B91EB80DD400EC054A /* TextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41366B81EB80DD400EC054A /* TextManager.swift */; };
 		C42A71BD1E9C0AF200944367 /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42A71BC1E9C0AF200944367 /* FocusSquare.swift */; };
 		C490DAC41E9AB63400210960 /* VirtualObjectSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C490DAC31E9AB63400210960 /* VirtualObjectSelectionViewController.swift */; };
@@ -52,7 +56,18 @@
 		C4FBC02B1EC6438B003F7864 /* ARCameraTrackingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FBC02A1EC6438B003F7864 /* ARCameraTrackingState.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		6FCE0E6E1F6199F000C17BB4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3929C4801E89EC2C00E00B60 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3929C4871E89EC2C00E00B60;
+			remoteInfo = ARMeasure;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		014CF645BF585EC9EDEF4389 /* Pods_ARMeasureTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARMeasureTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0694686731F74597AD9DC67A /* Pods-ARMeasure.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARMeasure.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARMeasure/Pods-ARMeasure.release.xcconfig"; sourceTree = "<group>"; };
 		11063F3B1EBE651B0033EE6D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		16DA3C59CAE7D97A9FDD9FA0 /* SampleCode.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
@@ -96,7 +111,14 @@
 		6F87138A1F559CB30088A5ED /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
 		6F87138F1F568E860088A5ED /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6FC8904B1F5EDEAA00573B43 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		6FCE0E631F60422000C17BB4 /* JSONManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONManager.swift; sourceTree = "<group>"; };
+		6FCE0E691F6199F000C17BB4 /* ARMeasureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARMeasureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FCE0E6B1F6199F000C17BB4 /* ARMeasureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARMeasureTests.swift; sourceTree = "<group>"; };
+		6FCE0E6D1F6199F000C17BB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6FCE0E731F619A2E00C17BB4 /* JSONmanagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONmanagerTests.swift; sourceTree = "<group>"; };
 		86AAD0C36121BC3465619718 /* Pods_ARMeasure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARMeasure.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B51A8610DCE9067C123E53AC /* Pods-ARMeasureTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARMeasureTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARMeasureTests/Pods-ARMeasureTests.release.xcconfig"; sourceTree = "<group>"; };
+		BBC886445096D27AFAF573F8 /* Pods-ARMeasureTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARMeasureTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ARMeasureTests/Pods-ARMeasureTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C02F5F68D0942FA20326E400 /* Pods-ARMeasure.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARMeasure.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ARMeasure/Pods-ARMeasure.debug.xcconfig"; sourceTree = "<group>"; };
 		C41366B81EB80DD400EC054A /* TextManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextManager.swift; sourceTree = "<group>"; };
 		C42A71BC1E9C0AF200944367 /* FocusSquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
@@ -112,6 +134,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD24CA6C9C1E9A7A6326F1E0 /* Pods_ARMeasure.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6FCE0E661F6199F000C17BB4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6A4E0298FDC0B7CCD3847A5 /* Pods_ARMeasureTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +167,7 @@
 				11063F3B1EBE651B0033EE6D /* README.md */,
 				6F87138F1F568E860088A5ED /* Podfile */,
 				3929C48A1E89EC2C00E00B60 /* ARMeasure */,
+				6FCE0E6A1F6199F000C17BB4 /* ARMeasureTests */,
 				3929C4891E89EC2C00E00B60 /* Products */,
 				CC6CF3D48B06681D66F6DE20 /* Configuration */,
 				9C8A8E986AF37F2203F141AB /* LICENSE */,
@@ -149,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				3929C4881E89EC2C00E00B60 /* ARMeasure.app */,
+				6FCE0E691F6199F000C17BB4 /* ARMeasureTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -209,6 +241,7 @@
 				39C0B9581E9C6B1F003FCA0C /* Utilities.swift */,
 				6F654E331F5596F900DAE3BE /* Constants.swift */,
 				6F3BBE801F56CB4200AEA55E /* RealmManager.swift */,
+				6FCE0E631F60422000C17BB4 /* JSONManager.swift */,
 				6F3B01161F57F33F00BCC78D /* FileManagerWrapper.swift */,
 				6FC8904B1F5EDEAA00573B43 /* Logger.swift */,
 			);
@@ -225,10 +258,21 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		6FCE0E6A1F6199F000C17BB4 /* ARMeasureTests */ = {
+			isa = PBXGroup;
+			children = (
+				6FCE0E6B1F6199F000C17BB4 /* ARMeasureTests.swift */,
+				6FCE0E6D1F6199F000C17BB4 /* Info.plist */,
+				6FCE0E731F619A2E00C17BB4 /* JSONmanagerTests.swift */,
+			);
+			path = ARMeasureTests;
+			sourceTree = "<group>";
+		};
 		78CEACA7BB36883A00B5AB5B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				86AAD0C36121BC3465619718 /* Pods_ARMeasure.framework */,
+				014CF645BF585EC9EDEF4389 /* Pods_ARMeasureTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -246,6 +290,8 @@
 			children = (
 				C02F5F68D0942FA20326E400 /* Pods-ARMeasure.debug.xcconfig */,
 				0694686731F74597AD9DC67A /* Pods-ARMeasure.release.xcconfig */,
+				BBC886445096D27AFAF573F8 /* Pods-ARMeasureTests.debug.xcconfig */,
+				B51A8610DCE9067C123E53AC /* Pods-ARMeasureTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -294,6 +340,27 @@
 			productReference = 3929C4881E89EC2C00E00B60 /* ARMeasure.app */;
 			productType = "com.apple.product-type.application";
 		};
+		6FCE0E681F6199F000C17BB4 /* ARMeasureTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6FCE0E701F6199F000C17BB4 /* Build configuration list for PBXNativeTarget "ARMeasureTests" */;
+			buildPhases = (
+				C93D970AD0F4C9BF9DBAEDF8 /* [CP] Check Pods Manifest.lock */,
+				6FCE0E651F6199F000C17BB4 /* Sources */,
+				6FCE0E661F6199F000C17BB4 /* Frameworks */,
+				6FCE0E671F6199F000C17BB4 /* Resources */,
+				A4E02D2E58CADB2D6BA02CD6 /* [CP] Embed Pods Frameworks */,
+				7F3AAD2FB103718BB5EE3605 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6FCE0E6F1F6199F000C17BB4 /* PBXTargetDependency */,
+			);
+			name = ARMeasureTests;
+			productName = ARMeasureTests;
+			productReference = 6FCE0E691F6199F000C17BB4 /* ARMeasureTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -309,6 +376,12 @@
 						DevelopmentTeam = D5C4RXBP5H;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
+					};
+					6FCE0E681F6199F000C17BB4 = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = ES4B789T7A;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 3929C4871E89EC2C00E00B60;
 					};
 				};
 			};
@@ -326,6 +399,7 @@
 			projectRoot = "";
 			targets = (
 				3929C4871E89EC2C00E00B60 /* ARMeasure */,
+				6FCE0E681F6199F000C17BB4 /* ARMeasureTests */,
 			);
 		};
 /* End PBXProject section */
@@ -341,6 +415,13 @@
 				3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */,
 				6F87137C1F559BE80088A5ED /* Default-568h@2x.png in Resources */,
 				3929C4911E89EC2C00E00B60 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6FCE0E671F6199F000C17BB4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +483,61 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ARMeasure/Pods-ARMeasure-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7F3AAD2FB103718BB5EE3605 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ARMeasureTests/Pods-ARMeasureTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A4E02D2E58CADB2D6BA02CD6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ARMeasureTests/Pods-ARMeasureTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ARMeasureTests/Pods-ARMeasureTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C93D970AD0F4C9BF9DBAEDF8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ARMeasureTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -419,6 +555,7 @@
 				6F3B01171F57F33F00BCC78D /* FileManagerWrapper.swift in Sources */,
 				C41366B91EB80DD400EC054A /* TextManager.swift in Sources */,
 				39C0B95A1E9C6B1F003FCA0C /* Utilities.swift in Sources */,
+				6FCE0E641F60422000C17BB4 /* JSONManager.swift in Sources */,
 				6F654E361F559B2600DAE3BE /* MeasureElement.swift in Sources */,
 				6F8713861F559C7B0088A5ED /* Vase.swift in Sources */,
 				392BB82C1EA19A7C00FBBAC8 /* Plane.swift in Sources */,
@@ -448,7 +585,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6FCE0E651F6199F000C17BB4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FCE0E6C1F6199F000C17BB4 /* ARMeasureTests.swift in Sources */,
+				6FCE0E741F619A2E00C17BB4 /* JSONmanagerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6FCE0E6F1F6199F000C17BB4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3929C4871E89EC2C00E00B60 /* ARMeasure */;
+			targetProxy = 6FCE0E6E1F6199F000C17BB4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3929C48F1E89EC2C00E00B60 /* Main.storyboard */ = {
@@ -595,6 +749,60 @@
 			};
 			name = Release;
 		};
+		6FCE0E711F6199F000C17BB4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BBC886445096D27AFAF573F8 /* Pods-ARMeasureTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ES4B789T7A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ARMeasureTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.seyoung.ARMeasureTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARMeasure.app/ARMeasure";
+			};
+			name = Debug;
+		};
+		6FCE0E721F6199F000C17BB4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B51A8610DCE9067C123E53AC /* Pods-ARMeasureTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ES4B789T7A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ARMeasureTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.seyoung.ARMeasureTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARMeasure.app/ARMeasure";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -612,6 +820,15 @@
 			buildConfigurations = (
 				3929C49B1E89EC2C00E00B60 /* Debug */,
 				3929C49C1E89EC2C00E00B60 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6FCE0E701F6199F000C17BB4 /* Build configuration list for PBXNativeTarget "ARMeasureTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6FCE0E711F6199F000C17BB4 /* Debug */,
+				6FCE0E721F6199F000C17BB4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
