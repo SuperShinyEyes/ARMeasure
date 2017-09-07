@@ -47,19 +47,6 @@
 		6FCE0E641F60422000C17BB4 /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE0E631F60422000C17BB4 /* JSONManager.swift */; };
 		6FCE0E6C1F6199F000C17BB4 /* ARMeasureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE0E6B1F6199F000C17BB4 /* ARMeasureTests.swift */; };
 		6FCE0E741F619A2E00C17BB4 /* JSONmanagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE0E731F619A2E00C17BB4 /* JSONmanagerTests.swift */; };
-		6FCE0E771F61A09900C17BB4 /* FileManagerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3B01161F57F33F00BCC78D /* FileManagerWrapper.swift */; };
-		6FCE0E791F61A0BF00C17BB4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC8904B1F5EDEAA00573B43 /* Logger.swift */; };
-		6FCE0E7A1F61A0D000C17BB4 /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F654E2B1F5596EB00DAE3BE /* Measure.swift */; };
-		6FCE0E7B1F61A0D800C17BB4 /* MeasureAreaPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F654E2C1F5596EB00DAE3BE /* MeasureAreaPlane.swift */; };
-		6FCE0E7C1F61A0DE00C17BB4 /* MeasureElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F654E2D1F5596EB00DAE3BE /* MeasureElement.swift */; };
-		6FCE0E7D1F61A0E200C17BB4 /* MeasureNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F654E2E1F5596EB00DAE3BE /* MeasureNode.swift */; };
-		6FCE0E7E1F61A0E800C17BB4 /* MeasureVertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F654E2F1F5596EB00DAE3BE /* MeasureVertex.swift */; };
-		6FCE0E7F1F61A0EC00C17BB4 /* MeasureVertexLengthLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F654E301F5596EB00DAE3BE /* MeasureVertexLengthLabel.swift */; };
-		6FCE0E801F61A0F000C17BB4 /* XYZAxisNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F654E311F5596EB00DAE3BE /* XYZAxisNode.swift */; };
-		6FCE0E811F61A10200C17BB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F654E331F5596F900DAE3BE /* Constants.swift */; };
-		6FCE0E821F61A10D00C17BB4 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C0B9581E9C6B1F003FCA0C /* Utilities.swift */; };
-		6FCE0E831F61A20D00C17BB4 /* SCNNode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8713891F559CB30088A5ED /* SCNNode+Extensions.swift */; };
-		6FCE0E841F61A21D00C17BB4 /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F87138A1F559CB30088A5ED /* SCNVector3+Extensions.swift */; };
 		6FCE0E861F61AF8D00C17BB4 /* RealmObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE0E851F61AF8D00C17BB4 /* RealmObjects.swift */; };
 		AD24CA6C9C1E9A7A6326F1E0 /* Pods_ARMeasure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AAD0C36121BC3465619718 /* Pods_ARMeasure.framework */; };
 		B6A4E0298FDC0B7CCD3847A5 /* Pods_ARMeasureTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 014CF645BF585EC9EDEF4389 /* Pods_ARMeasureTests.framework */; };
@@ -606,21 +593,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FCE0E7D1F61A0E200C17BB4 /* MeasureNode.swift in Sources */,
-				6FCE0E7A1F61A0D000C17BB4 /* Measure.swift in Sources */,
 				6FCE0E6C1F6199F000C17BB4 /* ARMeasureTests.swift in Sources */,
-				6FCE0E821F61A10D00C17BB4 /* Utilities.swift in Sources */,
-				6FCE0E7C1F61A0DE00C17BB4 /* MeasureElement.swift in Sources */,
-				6FCE0E791F61A0BF00C17BB4 /* Logger.swift in Sources */,
-				6FCE0E7E1F61A0E800C17BB4 /* MeasureVertex.swift in Sources */,
-				6FCE0E831F61A20D00C17BB4 /* SCNNode+Extensions.swift in Sources */,
-				6FCE0E7B1F61A0D800C17BB4 /* MeasureAreaPlane.swift in Sources */,
 				6FCE0E741F619A2E00C17BB4 /* JSONmanagerTests.swift in Sources */,
-				6FCE0E841F61A21D00C17BB4 /* SCNVector3+Extensions.swift in Sources */,
-				6FCE0E801F61A0F000C17BB4 /* XYZAxisNode.swift in Sources */,
-				6FCE0E811F61A10200C17BB4 /* Constants.swift in Sources */,
-				6FCE0E771F61A09900C17BB4 /* FileManagerWrapper.swift in Sources */,
-				6FCE0E7F1F61A0EC00C17BB4 /* MeasureVertexLengthLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
