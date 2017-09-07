@@ -62,6 +62,14 @@ class JSONManager {
         
     }
     
+    func append(left: JSON, right: JSON) -> JSON? {
+        do {
+            return try left.merged(with: right)
+        } catch {
+            Logger.log("Couldn't append JSON", event: .error)
+        }
+        return nil
+    }
     /**
      Add data with a given screenshotName to JSON. The content of JSON
      is retrieved from Realm DB.

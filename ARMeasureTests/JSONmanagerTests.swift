@@ -26,9 +26,73 @@ class JSONmanagerTests: XCTestCase {
         super.tearDown()
     }
     
-    func testMainJSONExists() {
-        
+    func testSetupJSON() {
         XCTAssertNotNil(jm.json, "Main JSON doesn't exist")
+    }
+    
+    func testAppend() {
+        
+        let left: JSON = [ "data":
+            [[
+            "screenShotName":"2017-09-06T11:38:09.011Z",
+            "worldCoordinates":[[1, 2, 3]],
+            "screenCoordinates":[[2, 3]]
+            ]]
+        ]
+        
+        let right: JSON = [ "data":
+            [[
+                "screenShotName":"100",
+                "worldCoordinates":[[100, 2, 3]],
+                "screenCoordinates":[[200, 3]]
+                ]]
+        ]
+        
+        guard let merged = jm.append(left: left, right: right) else {
+            Logger.log("Append returned nil", event: .error)
+            return
+        }
+        
+        XCTAssertTrue(merged["data"].exists(), "Data exists")
+        XCTAssertEqual(merged["data", 0], left["data", 0])
+        XCTAssertNotEqual(merged["data", 1], left["data", 0])
+    }
+    
+    func testAppend2() {
+        
+        let left: JSON = [ "data":
+            [[
+                "screenShotName":"2017-09-06T11:38:09.011Z",
+                "worldCoordinates":[[1, 2, 3]],
+                "screenCoordinates":[[2, 3]]
+                ]]
+        ]
+        
+        let right: JSON = [ "data":
+            [[
+                "screenShotName":"100",
+                "worldCoordinates":[[100, 2, 3]],
+                "screenCoordinates":[[200, 3]]
+                ]]
+        ]
+        
+        guard let merged = jm.append(left: left, right: right) else {
+            return
+        }
+        
+        let right2: JSON = [ "data":
+            [[
+                "screenShotName":"10000",
+                "worldCoordinates":[[1000, 2, 3]],
+                "screenCoordinates":[[200, 3]]
+                ]]
+        ]
+        
+        guard let merged2 = jm.append(left: merged, right: right2) else { return }
+        
+        XCTAssertTrue(merged["data"].exists(), "Data exists")
+        XCTAssertEqual(merged2["data"].arrayObject?.count, 3)
+        
     }
     
     func testPerformanceExample() {
