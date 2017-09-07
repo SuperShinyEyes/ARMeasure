@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftyJSON
 
 enum ImageFormat: String {
     case png = ".png"
@@ -28,7 +29,9 @@ struct FileManagerWrapper {
         guard let path = FileManager.default.urls(
             for: .documentDirectory,
             in: .userDomainMask).first
-            else { return nil }
+            else {
+                Logger.log("Couldn't get path for \(name + format)", event: .warning)
+                return nil }
         
         return path.appendingPathComponent(name + format)
     }
@@ -79,6 +82,32 @@ struct FileManagerWrapper {
                 
         }
         return image
+    }
+    
+    static func getJSONFromDisk(name: String) -> JSON? {
+        guard let path: String = getPathWithFileName(FileName: name)?.path else {
+            return nil
+        }
+        do {
+            let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
+            let json = JSON(data: data)
+            if json != JSON.null {
+                return json
+            } else {
+                Logger.log("Could not get json from file, make sure that file contains valid json.", event: .error)
+            }
+        } catch let error {
+            Logger.log(error.localizedDescription, event: .error)
+        }
+        return nil
+    }
+    
+    static func writeJSONToDisk(json: JSON, name: String) {
+        guard let saveFileURL = FileManagerWrapper.getPathWithFileName(FileName: name)
+            else { return }
+        
+        let jsonData = try! json.rawData()
+        try! jsonData.write(to: saveFileURL, options: .atomic)
     }
 
 

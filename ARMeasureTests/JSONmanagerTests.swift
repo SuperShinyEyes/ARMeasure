@@ -9,14 +9,16 @@
 import XCTest
 //import SwiftyJSON
 import SwiftyJSON
+@testable import ARMeasure
 
 class JSONmanagerTests: XCTestCase {
     
-    
+    let jm = JSONManager.sharedInstance
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        
     }
     
     override func tearDown() {
@@ -24,9 +26,9 @@ class JSONmanagerTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testMainJSONExists() {
+        
+        XCTAssertNotNil(jm.json, "Main JSON doesn't exist")
     }
     
     func testPerformanceExample() {

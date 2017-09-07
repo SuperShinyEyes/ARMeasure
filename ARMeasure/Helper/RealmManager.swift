@@ -16,52 +16,6 @@ protocol RealmManagerDelegate: class {
     func updateShowAlbumButtonImage(with image: UIImage)
 }
 
-/**
- The highest hierarchy in DB which contains all data
- */
-final class MeasureSessionList: Object {
-    @objc dynamic var id = ""
-    let sessions = List<MeasureSession>()
-    
-    override static func primaryKey() -> String? {
-        return "id"
-    }
-}
-
-/**
- Contains one whole session data.
- One session starts when user starts the app and ends when user exits
- the app
- */
-final class MeasureSession: Object {
-    @objc dynamic var id = ""
-    let datum = List<MeasureData>()
-    
-    override static func primaryKey() -> String? {
-        return "id"
-    }
-}
-
-final class MeasureData: Object {
-    @objc dynamic var screenshotName = ""
-    let worldCoordinates = List<Coordinates3D>()
-    let screenCoordinates = List<Coordinates2D>()
-    
-    override static func primaryKey() -> String? {
-        return "screenshotName"
-    }
-}
-
-final class Coordinates3D: Object {
-    @objc dynamic var x: Float = 0.0
-    @objc dynamic var y: Float = 0.0
-    @objc dynamic var z: Float = 0.0
-}
-
-final class Coordinates2D: Object {
-    @objc dynamic var x: Float = 0.0
-    @objc dynamic var y: Float = 0.0
-}
 
 class RealmManager {
     
@@ -92,7 +46,7 @@ class RealmManager {
     weak var delegate: RealmManagerDelegate?
     
     
-    init() {
+    private init() {
         sessionID = Date().iso8601
         setupRealm()
     }
@@ -101,20 +55,43 @@ class RealmManager {
         notificationToken.stop()
     }
     
+    private func getRealm() -> Realm {
+        if let _ = NSClassFromString("XCTest") {
+            return try!  Realm(configuration:
+                Realm.Configuration(
+                    fileURL: nil,
+                    inMemoryIdentifier: "test",
+                    encryptionKey: nil,
+                    readOnly: false,
+                    schemaVersion: 0,
+                    migrationBlock: nil,
+                    objectTypes: nil)
+            )
+        } else {
+            return try! Realm()
+        }
+    }
+    
     func setupRealm() {
         
 //        DispatchQueue.main.async {
             do {
-                self.realm = try Realm()
+                self.realm = getRealm()
+                Logger.log("Realm DB is loaded", event: .verbose)
                 
                 /// Create a session list DB if it doesn't exist.
                 /// It is created only once.
                 if self.realm.objects(MeasureSessionList.self).count == 0 {
-                    try! self.realm.write {
-                        let sessionList = MeasureSessionList()
-                        sessionList.id = "database"
-                        self.realm.add(sessionList)
+                    do {
+                        try self.realm.write {
+                            let sessionList = MeasureSessionList()
+                            sessionList.id = "database"
+                            self.realm.add(sessionList)
+                        }
+                    } catch {
+                        Logger.log("Couldn't write to Realm for setup", event: .severe)
                     }
+                    
                     
                 }
                 
@@ -147,7 +124,7 @@ class RealmManager {
                 
 //                self.notificationToken = self.realm.addNotificationBlock{ _,_  in updateList()}
             } catch {
-                print("Couldn't load Realm")
+                Logger.log("Couldn't load Realm", event: .severe)
             }
 //        }
     }
