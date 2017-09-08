@@ -14,7 +14,7 @@ import SwiftyJSON
 
 
 
-class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentationControllerDelegate, VirtualObjectSelectionViewControllerDelegate {
+class ViewController: UIViewController, UIPopoverPresentationControllerDelegate, VirtualObjectSelectionViewControllerDelegate {
 	
     // MARK: - Main Setup & View Controller methods
     override func viewDidLoad() {
@@ -108,49 +108,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 		sceneView.scene.lightingEnvironment.intensity = intensity
 	}
 	
-    // MARK: - ARSCNViewDelegate
-	
-	func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-		refreshFeaturePoints()
-		
-		DispatchQueue.main.async {
-			self.updateFocusSquare()
-			self.hitTestVisualization?.render()
-			
-			// If light estimation is enabled, update the intensity of the model's lights and the environment map
-			if let lightEstimate = self.session.currentFrame?.lightEstimate {
-				self.enableEnvironmentMapWithIntensity(lightEstimate.ambientIntensity / 40)
-			} else {
-				self.enableEnvironmentMapWithIntensity(25)
-			}
-		}
-	}
-	
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        DispatchQueue.main.async {
-            if let planeAnchor = anchor as? ARPlaneAnchor {
-				self.addPlane(node: node, anchor: planeAnchor)
-                self.checkIfObjectShouldMoveOntoPlane(anchor: planeAnchor)
-            }
-        }
-    }
-	
-    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        DispatchQueue.main.async {
-            if let planeAnchor = anchor as? ARPlaneAnchor {
-                self.updatePlane(anchor: planeAnchor)
-                self.checkIfObjectShouldMoveOntoPlane(anchor: planeAnchor)
-            }
-        }
-    }
-	
-    func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
-        DispatchQueue.main.async {
-            if let planeAnchor = anchor as? ARPlaneAnchor {
-                self.removePlane(anchor: planeAnchor)
-            }
-        }
-    }
+    
 	
 	var trackingFallbackTimer: Timer?
 
@@ -823,8 +781,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
     
     
 	
+    // MARK: Screenshot
 	@IBOutlet weak var screenshotButton: UIButton!
-    
+    private var takeScreenshotWithoutGraphics = false
+    private var childNodesTemporaryContainer = [SCNNode]()
 	
     /**
      Take a screenshot of a measuring session.
@@ -844,13 +804,45 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
         let takeScreenshotBlock = {
 //            UIImageWriteToSavedPhotosAlbum(self.sceneView.snapshot(), nil, nil, nil)
             
-            /// Save the screenshot to disk
-            let screenshot = self.sceneView.snapshot()
             let screenshotName: String = Date().iso8601
-            FileManagerWrapper.writeImageToDisk(image: screenshot, imageName: screenshotName, format: .png)
+            
+            let start = DispatchTime.now()
+            
+            /// Take screenshots with graphics
+            let screenshotWithGraphic = self.sceneView.snapshot()
+            
+            /// Take a screenshot without graphics
+            self.sceneView.scene.rootNode.isHidden = true
+            let screenshotWithoutGraphic = self.sceneView.snapshot()
+            
+            /// Show graphics again
+            self.sceneView.scene.rootNode.isHidden = false
+            
+            let end = DispatchTime.now()
+            let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds // <<<<< Difference in nano seconds (UInt64)
+            let timeInterval = Double(nanoTime) / 1_000_000_000 // Technically could overflow for long running tests
+            Logger.log("Screenshot elapsed time: \(timeInterval) sec", event: .info)
+            
+            self.save(screenshotName: screenshotName, screenshotWithGraphic: screenshotWithGraphic, screenshotWithoutGraphic: screenshotWithoutGraphic)
+            
+//            DispatchQueue.global(qos: .background).async {
+//                /// Save the screenshot to disk
+//                FileManagerWrapper.writeImageToDisk(
+//                    image: screenshotWithGraphics,
+//                    imageName: screenshotName + "-with-graphics",
+//                    format: .png
+//                )
+//
+//                FileManagerWrapper.writeImageToDisk(
+//                    image: screenshotWithoutGraphics,
+//                    imageName: screenshotName,
+//                    format: .png
+//                )
+//            }
             
             /// Save data to Realm DB.
-            self.realmManager.add(measure: self.measure, screenshotName: screenshotName)
+//            self.realmManager.add(measure: self.measure, screenshotName: screenshotName)
+            
 			DispatchQueue.main.async {
 				// Briefly flash the screen.
 				let flashOverlay = UIView(frame: self.sceneView.frame)
@@ -862,28 +854,35 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
 					flashOverlay.removeFromSuperview()
 				})
 			}
-//            self.albumButton.setImage(screenshot, for: .normal)
-            
 		}
         
-        
 		takeScreenshotBlock()
-//        switch PHPhotoLibrary.authorizationStatus() {
-//        case .authorized:
-//            takeScreenshotBlock()
-//            realmManager.add(measure: measure)
-//        case .restricted, .denied:
-//            let title = "Photos access denied"
-//            let message = "Please enable Photos access for this application in Settings > Privacy to allow saving screenshots."
-//            textManager.showAlert(title: title, message: message)
-//        case .notDetermined:
-//            PHPhotoLibrary.requestAuthorization({ (authorizationStatus) in
-//                if authorizationStatus == .authorized {
-//                    takeScreenshotBlock()
-//                }
-//            })
-//        }
 	}
+    
+    private func save(screenshotName: String, screenshotWithGraphic: UIImage, screenshotWithoutGraphic: UIImage) {
+        guard let measureData = realmManager.add(measure: measure, screenshotName: screenshotName) else {
+            Logger.log("Couldn't save measure data", event: .severe)
+            return
+        }
+        
+        DispatchQueue.global(qos: .background).async {
+            /// Save the screenshot to disk
+            FileManagerWrapper.writeImageToDisk(
+                image: screenshotWithGraphic,
+                imageName: screenshotName + "-with-graphics",
+                format: .png
+            )
+            
+            FileManagerWrapper.writeImageToDisk(
+                image: screenshotWithoutGraphic,
+                imageName: screenshotName,
+                format: .png
+            )
+        }
+        
+        JSONManager.sharedInstance.updateMainJSON(data: measureData)
+        self.albumButton.setImage(screenshotWithGraphic, for: .normal)
+    }
 		
 	// MARK: - Settings
 	
@@ -1027,6 +1026,54 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPopoverPresentation
     }
     
     
+}
+
+
+
+extension ViewController: ARSCNViewDelegate {
+    // MARK: - ARSCNViewDelegate
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        refreshFeaturePoints()
+        
+        DispatchQueue.main.async {
+            self.updateFocusSquare()
+            self.hitTestVisualization?.render()
+            
+            // If light estimation is enabled, update the intensity of the model's lights and the environment map
+            if let lightEstimate = self.session.currentFrame?.lightEstimate {
+                self.enableEnvironmentMapWithIntensity(lightEstimate.ambientIntensity / 40)
+            } else {
+                self.enableEnvironmentMapWithIntensity(25)
+            }
+        }
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        DispatchQueue.main.async {
+            if let planeAnchor = anchor as? ARPlaneAnchor {
+                self.addPlane(node: node, anchor: planeAnchor)
+                self.checkIfObjectShouldMoveOntoPlane(anchor: planeAnchor)
+            }
+        }
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        DispatchQueue.main.async {
+            if let planeAnchor = anchor as? ARPlaneAnchor {
+                self.updatePlane(anchor: planeAnchor)
+                self.checkIfObjectShouldMoveOntoPlane(anchor: planeAnchor)
+            }
+        }
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
+        DispatchQueue.main.async {
+            if let planeAnchor = anchor as? ARPlaneAnchor {
+                self.removePlane(anchor: planeAnchor)
+            }
+        }
+    }
 }
 
 extension ViewController: MeasureDelegate {

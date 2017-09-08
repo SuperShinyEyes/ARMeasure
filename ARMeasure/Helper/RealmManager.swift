@@ -134,9 +134,7 @@ class RealmManager {
      */
     private func createSesseion() {
         guard currentSession?.id != sessionID,
-            let _ = self.realm else {
-                Logger.log("Unncessary to create a new session", event: .info)
-                return }
+            let _ = self.realm else { return }
         
 //        DispatchQueue.main.async {
             do {
@@ -159,17 +157,27 @@ class RealmManager {
 //        }
     }
     
-    func add(measure: Measure, screenshotName: String) {
+    /**
+     RealmManager.add() is the core of data saving logic in ARMeasure.
+     add() does:
+         1. write data to Realm DB,
+         2. update main json
+         3. write screenshots(withGraphic/withoutGraphic) to disk
+         4. update album image
+     */
+    func add(measure: Measure, screenshotName: String) -> MeasureData? {
         createSesseion()
         
+        /// Prepare content for Realm DB write
         guard let datum: List<MeasureData> = self.currentDatum else {
             Logger.log("There's No datum i.e., NO SESSION!", event: .error)
-            return
+            return nil
         }
         
+        /// SceneView is needed for coordinate translation(projectPoint())
         guard let sceneView = measure.delegate?.sceneView else {
             Logger.log("There's SceneView: Cannot add to Realm!", event: .error)
-            return
+            return nil
         }
 
         let measureData = MeasureData()
@@ -178,6 +186,7 @@ class RealmManager {
             return sceneView.projectPoint($0.position)
         }
         
+        /// Write to Realm
         do {
             try datum.realm?.write {
                 
@@ -219,18 +228,14 @@ class RealmManager {
             }
         } catch {
             Logger.log("MeasureData Addition Failed", event: .severe)
-            return
+            return nil
         }
         
 //        DispatchQueue.main.async {
-            JSONManager.sharedInstance.updateMainJSON(data: measureData)
+        
 //        }
         
-        if let image = FileManagerWrapper.getImageFromDisk(name: screenshotName) {
-            self.delegate?.updateShowAlbumButtonImage(with: image)
-        } else {
-            Logger.log("Added MeasureData but couldn't find its image from disk", event: .severe)
-        }
         
+        return measureData
     }
 }

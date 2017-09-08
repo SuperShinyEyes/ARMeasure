@@ -68,7 +68,6 @@ class JSONManager {
         ]
         guard let updatedJSON = append(left: _mainJSON, right: newJSON) else { return }
         _mainJSON = updatedJSON
-        Logger.log("_mainJSON size: \(_mainJSON["data"].arrayObject?.count)", event: .verbose)
         
     }
     
@@ -91,12 +90,10 @@ class JSONManager {
         let worldCoordinates: [[Float]] = data.worldCoordinates.map { c in
             return [c.x,c.y,c.z]
         }
-        Logger.log("worldCoordinates: \(worldCoordinates)", event: .verbose)
         
         let screenCoordinates: [[Float]] = data.screenCoordinates.map { c in
             return [c.x,c.y]
         }
-        Logger.log("screenCoordinates: \(screenCoordinates)", event: .verbose)
         
         
         let json: JSON = [
