@@ -379,13 +379,13 @@
 				TargetAttributes = {
 					3929C4871E89EC2C00E00B60 = {
 						CreatedOnToolsVersion = 9.0;
-						DevelopmentTeam = D5C4RXBP5H;
+						DevelopmentTeam = ES4B789T7A;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					6FCE0E681F6199F000C17BB4 = {
 						CreatedOnToolsVersion = 9.0;
-						DevelopmentTeam = D5C4RXBP5H;
+						DevelopmentTeam = ES4B789T7A;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 3929C4871E89EC2C00E00B60;
 					};
@@ -727,7 +727,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D5C4RXBP5H;
+				DEVELOPMENT_TEAM = ES4B789T7A;
 				INFOPLIST_FILE = "$(SRCROOT)/ARMeasure/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.seyoung.arkit-sample-app";
@@ -746,7 +746,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D5C4RXBP5H;
+				DEVELOPMENT_TEAM = ES4B789T7A;
 				INFOPLIST_FILE = "$(SRCROOT)/ARMeasure/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.seyoung.arkit-sample-app";
@@ -772,7 +772,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D5C4RXBP5H;
+				DEVELOPMENT_TEAM = ES4B789T7A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = ARMeasureTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -799,7 +799,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D5C4RXBP5H;
+				DEVELOPMENT_TEAM = ES4B789T7A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = ARMeasureTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

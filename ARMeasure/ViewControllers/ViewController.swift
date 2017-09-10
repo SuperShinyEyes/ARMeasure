@@ -19,7 +19,7 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
     // MARK: - Main Setup & View Controller methods
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        session = sceneView.session
         Setting.registerDefaults()
         setupScene()
         setupDebug()
@@ -59,8 +59,9 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
     @IBOutlet weak var getAreaButton: UIButton!
 	
     // MARK: - ARKit / ARSCNView
-    let session = ARSession()
-	var sessionConfig: ARWorldTrackingConfiguration = ARWorldTrackingConfiguration()
+//    let session = ARSession()
+    var session: ARSession!
+	var sessionConfig = ARWorldTrackingConfiguration()
 	var use3DOFTracking = false {
 		didSet {
 			if use3DOFTracking {
@@ -72,6 +73,7 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
 	}
 	var use3DOFTrackingFallback = false
     @IBOutlet var sceneView: ARSCNView!
+    
 	var screenCenter: CGPoint?
     
     func setupScene() {
@@ -79,11 +81,13 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
         sceneView.delegate = self
         sceneView.session = session
 		sceneView.antialiasingMode = .multisampling4X
+        
 		sceneView.automaticallyUpdatesLighting = false
 		
+        
 		sceneView.preferredFramesPerSecond = 60
 		sceneView.contentScaleFactor = 1.3
-		//sceneView.showsStatistics = true
+        sceneView.showsStatistics = true
 		
 		enableEnvironmentMapWithIntensity(25.0)
 		
@@ -626,13 +630,14 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
         measure.getArea()
     }
 	
-	func restartPlaneDetection() {
-		
+    func restartPlaneDetection() {
+        
 		// configure session
-		if let worldSessionConfig = sessionConfig as? ARWorldTrackingSessionConfiguration {
-			worldSessionConfig.planeDetection = .horizontal
-			session.run(worldSessionConfig, options: [.resetTracking, .removeExistingAnchors])
-		}
+        Logger.log("sessionConfig.planeDetection = .horizontal", event: .verbose)
+        sessionConfig.planeDetection = .horizontal
+        sessionConfig.isLightEstimationEnabled = true
+        session.run(sessionConfig, options: [.resetTracking, .removeExistingAnchors])
+
 		
 		// reset timer
 		if trackingFallbackTimer != nil {
@@ -1047,6 +1052,8 @@ extension ViewController: ARSCNViewDelegate {
                 self.enableEnvironmentMapWithIntensity(25)
             }
         }
+        
+        
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
