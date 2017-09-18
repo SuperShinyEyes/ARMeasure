@@ -43,6 +43,13 @@ class Plane: SCNNode {
 		}
 	}
 	
+    func update(extent: vector_float3) {
+        debugVisualization?.update(extent: extent)
+        if UserDefaults.standard.bool(for: .useOcclusionPlanes) {
+            updateOcclusionNode()
+        }
+    }
+    
 	func showDebugVisualization(_ show: Bool) {
 		if show {
 			if debugVisualization == nil {

@@ -46,6 +46,12 @@ class PlaneDebugVisualization: SCNNode {
 		
 		adjustScale()
 	}
+    
+    func update(extent: vector_float3) {
+        self.planeGeometry.width = CGFloat(extent.x)
+        self.planeGeometry.height = CGFloat(extent.z)
+        adjustScale()
+    }
 	
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")

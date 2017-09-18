@@ -231,13 +231,10 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
 //        displayVirtualObjectTransform()
 	}
 	
+    /**
+     
+     */
 	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        if virtualObject == nil {
-//            chooseObject(addObjectButton)
-//            return
-//        }
-//
-//        currentGesture = currentGesture?.updateGestureFromTouches(touches, .touchEnded)
         guard let touch = touches.first else { return }
         
         /** Hit-test can have several options:
@@ -251,20 +248,38 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
             Logger.log("Initial touch: \n\(touch.location(in: sceneView))", event: .debug)
         }
         
-        // If user touches the initial measure node then get area and exit
-        
+        /// If user touches the initial measure node then get area and exit
         if measure.isClosable, let _ = hitMeasureNode(touch: touch) {
             measure.getArea()
             return
         }
         
-        let result = sceneView.hitTest(touch.location(in: sceneView), types: [.featurePoint])
+        var result: [ARHitTestResult]
+        switch measureMode {
+        case .normal:
+            result = sceneView.hitTest(touch.location(in: sceneView), types: [.featurePoint])
+        case .horizontal:
+            result = sceneView.hitTest(touch.location(in: sceneView), types: [.existingPlane])
+        }
         
-        guard let hitResult = result.last else { return }
+        
+        guard let hitResult:ARHitTestResult = result.last else { return }
         let hitTransform = SCNMatrix4(hitResult.worldTransform)
         let hitVector = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43)
         
         measure.addMeasureNode(newVector: hitVector)
+        
+        
+        switch measureMode {
+        case .horizontal:
+            if let planeAnchor = hitResult.anchor as? ARPlaneAnchor,
+                let plane = planes[planeAnchor] {
+                self.planeAnchor = planeAnchor
+                self.plane = plane
+            }
+        default:
+            return
+        }
 	}
     
     /**
@@ -609,7 +624,17 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
 	}
 	
     // MARK: - Planes
-	
+    var planeAnchor: ARPlaneAnchor?
+    var plane: Plane? {
+        didSet {
+            guard let planeAnchor = planeAnchor,
+            let plane = plane else { return }
+            planes.removeValue(forKey: planeAnchor)
+            removePlanes()
+            plane.update(extent: vector_float3(10, 0, 10))
+            
+        }
+    }
 	var planes = [ARPlaneAnchor: Plane]()
 	
     func addPlane(node: SCNNode, anchor: ARPlaneAnchor) {
@@ -634,10 +659,16 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
 			plane.update(anchor)
 		}
 	}
-			
+	
     func removePlane(anchor: ARPlaneAnchor) {
 		if let plane = planes.removeValue(forKey: anchor) {
 			plane.removeFromParentNode()
+        }
+    }
+    
+    func removePlanes() {
+        for (anchor, _) in planes {
+            removePlane(anchor: anchor)
         }
     }
     
