@@ -220,8 +220,9 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
             }
         }
         
-        guard let touch = touches.first else { return }
+        guard !measure.isEmpty, let touch = touches.first else { return }
         
+        addMeasureNode(touch)
         
 //        guard let object = virtualObject else {
 //            return
@@ -237,6 +238,9 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
 	}
 	
 	override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard !measure.isEmpty, let touch = touches.first else { return }
+        undo()
+        addMeasureNode(touch)
 //        if virtualObject == nil {
 //            return
 //        }
@@ -249,7 +253,9 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
      */
 	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        
+        if !measure.isEmpty {
+            undo()
+        }
         /** Hit-test can have several options:
          - .existingPlane
          - .estimatedHorizontalPlane
