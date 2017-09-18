@@ -668,6 +668,7 @@
                         <outlet property="showHitTestAPISwitch" destination="WsP-8P-bWy" id="Qbw-rU-9hY"/>
                         <outlet property="use3DOFTrackingSwitch" destination="hvf-FU-Xj9" id="JBU-7G-Jgg"/>
                         <outlet property="useAuto3DOFFallbackSwitch" destination="nEE-QL-y6f" id="GOn-rI-BET"/>
+                        <outlet property="useHorizontalMeasureSwitch" destination="lMp-qc-0vP" id="vGJ-ru-9jI"/>
                         <outlet property="useOcclusionPlanesSwitch" destination="7XJ-dG-Q74" id="THI-qA-gHe"/>
                     </connections>
                 </tableViewController>

@@ -20,6 +20,9 @@ enum Setting: String {
 
     // Integer state used in virtual object picker
     case selectedObjectID
+    
+    // ARMeasure specific
+    case useHorizontalMeasure
 
     static func registerDefaults() {
         UserDefaults.standard.register(defaults: [
@@ -54,7 +57,8 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var use3DOFTrackingSwitch: UISwitch!
 	@IBOutlet weak var useAuto3DOFFallbackSwitch: UISwitch!
 	@IBOutlet weak var useOcclusionPlanesSwitch: UISwitch!
-	
+    @IBOutlet weak var useHorizontalMeasureSwitch: UISwitch!
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         populateSettings()
@@ -79,6 +83,8 @@ class SettingsViewController: UITableViewController {
                 defaults.set(sender.isOn, for: .use3DOFFallback)
 			case useOcclusionPlanesSwitch:
 				defaults.set(sender.isOn, for: .useOcclusionPlanes)
+            case useHorizontalMeasureSwitch:
+                defaults.set(sender.isOn, for: .useHorizontalMeasure)
             default: break
 		}
 	}
@@ -94,5 +100,6 @@ class SettingsViewController: UITableViewController {
 		use3DOFTrackingSwitch.isOn = defaults.bool(for: .use3DOFTracking)
 		useAuto3DOFFallbackSwitch.isOn = defaults.bool(for: .use3DOFFallback)
 		useOcclusionPlanesSwitch.isOn = defaults.bool(for: .useOcclusionPlanes)
+        useHorizontalMeasureSwitch.isOn = defaults.bool(for: .useHorizontalMeasure)
 	}
 }

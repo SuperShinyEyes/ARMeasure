@@ -648,6 +648,23 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
     @IBAction func getArea() {
         measure.getArea()
     }
+    
+    func restartWithoutPlaneDetection() {
+        // configure session
+        sessionConfig.isLightEstimationEnabled = true
+        session.run(sessionConfig, options: [.resetTracking, .removeExistingAnchors])
+        
+        
+        // reset timer
+        if trackingFallbackTimer != nil {
+            trackingFallbackTimer!.invalidate()
+            trackingFallbackTimer = nil
+        }
+        
+        textManager.scheduleMessage("FIND A SURFACE TO PLACE AN OBJECT",
+                                    inSeconds: 7.5,
+                                    messageType: .focusSquare)
+    }
 	
     func restartPlaneDetection() {
         
@@ -937,6 +954,13 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
 		self.dismiss(animated: true, completion: nil)
 		updateSettings()
 	}
+    
+    // MARK: Measure Mode
+    enum MeasureMode {
+        case normal
+        case horizontal
+    }
+    private var measureMode: MeasureMode = .normal
 	
 	private func updateSettings() {
 		let defaults = UserDefaults.standard
@@ -950,6 +974,14 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
 		for (_, plane) in planes {
 			plane.updateOcclusionSetting()
 		}
+        
+        if defaults.bool(for: .useHorizontalMeasure) {
+            measureMode = .horizontal
+            restartWithoutPlaneDetection()
+        } else {
+            measureMode = .normal
+            restartPlaneDetection()
+        }
 	}
     
     // MARK:Image Album VC
