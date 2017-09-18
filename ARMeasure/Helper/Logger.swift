@@ -42,6 +42,12 @@ struct Logger {
         print("\(Date().toString()) \(event.rawValue)[\(sourceFileName(filePath: fileName))]:\(line) \(funcName) -> \(message)")
         #endif
     }
+    
+    static func log() {
+        #if DEBUG
+            print("\(Date().toString()) \(LogEvent.debug.rawValue)[\(sourceFileName(filePath: #file))]:\(#line) \(#function)")
+        #endif
+    }
 }
 
 extension Date {
