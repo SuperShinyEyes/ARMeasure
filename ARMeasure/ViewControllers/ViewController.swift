@@ -209,7 +209,16 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
          - If the measure has closed measure, delete all nodes and restart.
      */
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if measure.isClosed { measure.reset() }
+        if measure.isClosed {
+            measure.reset()
+            plane = nil
+            switch measureMode {
+            case .horizontal:
+                restartPlaneDetection()
+            default:
+                return
+            }
+        }
 //        guard let object = virtualObject else {
 //            return
 //        }
@@ -254,6 +263,7 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
             return
         }
         
+        // Get objects by hit-test with a corresponding types
         var result: [ARHitTestResult]
         switch measureMode {
         case .normal:
@@ -262,23 +272,24 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
             result = sceneView.hitTest(touch.location(in: sceneView), types: [.existingPlane])
         }
         
-        
-        guard let hitResult:ARHitTestResult = result.last else { return }
+        // Convert touch coordinate into world coordinate
+        guard let hitResult:ARHitTestResult = result.first else { return }
         let hitTransform = SCNMatrix4(hitResult.worldTransform)
         let hitVector = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43)
         
         measure.addMeasureNode(newVector: hitVector)
         
-        
-        switch measureMode {
-        case .horizontal:
-            if let planeAnchor = hitResult.anchor as? ARPlaneAnchor,
-                let plane = planes[planeAnchor] {
-                self.planeAnchor = planeAnchor
-                self.plane = plane
+        if plane == nil {
+            switch measureMode {
+            case .horizontal:
+                if let planeAnchor = hitResult.anchor as? ARPlaneAnchor,
+                    let plane = planes[planeAnchor] {
+                    self.planeAnchor = planeAnchor
+                    self.plane = plane
+                }
+            default:
+                return
             }
-        default:
-            return
         }
 	}
     
@@ -626,9 +637,14 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
     // MARK: - Planes
     var planeAnchor: ARPlaneAnchor?
     var plane: Plane? {
+        willSet {
+            guard newValue == nil, let plane = plane else {return}
+            self.planeAnchor = nil
+            plane.removeFromParentNode()
+        }
         didSet {
             guard let planeAnchor = planeAnchor,
-            let plane = plane else { return }
+                let plane = plane else { return }
             planes.removeValue(forKey: planeAnchor)
             removePlanes()
             plane.update(extent: vector_float3(10, 0, 10))
@@ -636,6 +652,7 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
         }
     }
 	var planes = [ARPlaneAnchor: Plane]()
+    
 	
     func addPlane(node: SCNNode, anchor: ARPlaneAnchor) {
 		
@@ -667,6 +684,7 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
     }
     
     func removePlanes() {
+        Logger.log()
         for (anchor, _) in planes {
             removePlane(anchor: anchor)
         }
@@ -1139,6 +1157,8 @@ extension ViewController: ARSCNViewDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        guard plane == nil else {
+            return }
         DispatchQueue.main.async {
             if let planeAnchor = anchor as? ARPlaneAnchor {
                 self.addPlane(node: node, anchor: planeAnchor)
@@ -1148,6 +1168,7 @@ extension ViewController: ARSCNViewDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        guard plane == nil else { return }
         DispatchQueue.main.async {
             if let planeAnchor = anchor as? ARPlaneAnchor {
                 self.updatePlane(anchor: planeAnchor)
@@ -1157,6 +1178,8 @@ extension ViewController: ARSCNViewDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
+        guard plane == nil else { return }
+        Logger.log("", event: .debug)
         DispatchQueue.main.async {
             if let planeAnchor = anchor as? ARPlaneAnchor {
                 self.removePlane(anchor: planeAnchor)
