@@ -315,15 +315,20 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
         let hitTransform = SCNMatrix4(hitResult.worldTransform)
         let hitVector = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43)
         
-        if measure.isEmpty {
+        switch measureMode {
+        case .horizontal:
+            if measure.isEmpty {
+                measure.addMeasureNode(newVector: hitVector)
+            } else {
+                measure.addMeasureNode(newVector:
+                    SCNVector3Make(
+                        hitVector.x,
+                        measure.initialMeasureNode!.position.y,
+                        hitVector.z
+                ))
+            }
+        default:
             measure.addMeasureNode(newVector: hitVector)
-        } else {
-            measure.addMeasureNode(newVector:
-                SCNVector3Make(
-                    hitVector.x,
-                    measure.initialMeasureNode!.position.y,
-                    hitVector.z
-                    ))
         }
         
         
