@@ -22,6 +22,9 @@ extension SCNVector3 {
         return sqrtf( powf(distanceX, 2) + powf(distanceY, 2) + powf(distanceZ, 2) )
     }
     
+    func cgpoint() -> CGPoint {
+        return CGPoint(x:CGFloat(self.x), y:CGFloat(self.y))
+    }
 }
 
 extension SCNVector3 {

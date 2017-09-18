@@ -32,6 +32,12 @@ class Measure {
     var measureNodesAsList: [MeasureNode] {
         return measureElementsAsList.map { $0.node }
     }
+    var initialMeasureNode: MeasureNode? {
+        return measureElementsAsList.first?.node
+    }
+    var isClosable: Bool {
+        return _is2D && measureNodesAsList.count > 2
+    }
     private var _isClosed = false
     var isClosed: Bool { return _isClosed }
     private var _is2D = true {
@@ -40,6 +46,9 @@ class Measure {
                 self.delegate?.disableAreaCalculation()
             }
         }
+    }
+    var isEmpty: Bool {
+        return measureElementsAsList.isEmpty
     }
     weak var delegate: MeasureDelegate?
     var measureNodeWorldCoordinateAsList: [[Float]] {
@@ -66,13 +75,16 @@ class Measure {
      */
     @IBAction func undo() {
         guard let _ = measureElementsAsList.popLast() else {
+            /// If there's node measure node left, reset
+            reset()
             return
         }
         
         /// Activate "Get Area" Button if necessary
         if let element = measureElementsAsList.last {
             if delegate!.isAreaCalculationAvailable && element.isMeasurePlaneWithThisNode {
-               delegate!.enableAreaCalculation()
+                delegate!.enableAreaCalculation()
+                _is2D = true
             }
         }
     }
@@ -172,7 +184,8 @@ extension Measure {
             let nodeEnd = measureElementsAsList[measureElementsAsList.count - 1].node
             addMeasureVertex(start: nodeStart.position, end: nodeEnd.position)
         } else {
-            Logger.log("The initial measure node: \(measureNode.position)", event: .info)
+            
+            Logger.log("The initial measure node: \n\(measureNode.position)\n\(delegate.sceneView.projectPoint(measureNode.position))", event: .info)
         }
         
         if Settings.isDebugging {

@@ -247,8 +247,13 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
          
          */
         
+        if measure.isEmpty {
+            Logger.log("Initial touch: \n\(touch.location(in: sceneView))", event: .debug)
+        }
+        
         // If user touches the initial measure node then get area and exit
-        if let _ = hitMeasureNode(touch: touch) {
+        
+        if measure.isClosable, let _ = hitMeasureNode(touch: touch) {
             measure.getArea()
             return
         }
@@ -267,38 +272,22 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
      calculate its area. The new hit to measure will erase all the existing ones.
      */
     private func hitMeasureNode(touch: UITouch) -> MeasureNode? {
+        let touchImageCoordinate = touch.location(in: sceneView)
+//        Logger.log("touchImageCoordinate: \(touchImageCoordinate)", event: .debug)
         
-//        let results = sceneView.hitTest(
-//            touch.location(in: sceneView), types: []
-//        )
+//        let i = sceneView.projectPoint(measure.measureNodesAsList.first!.position)
+//        Logger.log("initialMeasureNodeImageCoordinate: \(i)", event: .debug)
+//
+        let initialMeasureNodeViewCoordinate = sceneView.projectPoint(measure.initialMeasureNode!.position).cgpoint()
+//        Logger.log("initialMeasureNodeImageCoordinate: \(initialMeasureNodeImageCoordinate)", event: .debug)
         
-        let results = sceneView.hitTest(
-            touch.location(in: sceneView), options: nil
-        )
-        Logger.log("\(results.count) Graphic nodes were hit.", event: .verbose)
-        for r in results {
-            Logger.log("\(r.node.position) ", event: .info)
+        let distance = touchImageCoordinate.distanceTo(initialMeasureNodeViewCoordinate)
+//        Logger.log("distance: \(distance)", event: .debug)
+        if distance < 20 {
+            return measure.measureNodesAsList.first
+        } else {
+            return nil
         }
-
-        if let hitResult: SCNHitTestResult = results.first {
-            if let node = hitResult.node as? MeasureNode {
-                Logger.log("Clicked the initial node. Closing", event: .info)
-                return node
-            }
-//            let hitTransform = SCNMatrix4(hitResult.worldTransform)
-//            let hitVector = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43)
-//            return measure.getMeasureNode(at: hitVector)
-        }
-//        if let hitResult: ARHitTestResult = results.first {
-//            let hitTransform = SCNMatrix4(hitResult.worldTransform)
-//            let hitVector = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43)
-//            return measure.getMeasureNode(at: hitVector)
-//        }
-        print("NO MeasureNode HIT")
-        return nil
-        
-        
-        
         
     }
 	
