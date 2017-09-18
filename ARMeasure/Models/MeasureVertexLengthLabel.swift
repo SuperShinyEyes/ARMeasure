@@ -87,17 +87,18 @@ class MeasureVertexLengthLabel: Label {
     
     private func createLabel(id: Int, position:SCNVector3) {
         let width: CGFloat = 500
-        let height = width / 5
+        let height = width / 2
         let skScene = SKScene(size: CGSize(width: width, height: height))
 //        skScene.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
         skScene.backgroundColor = UIColor(white: 0.0, alpha: 0.0)
-        
         textureForDistanceLabelNode = SKLabelNode(fontNamed: "Menlo-Bold")
-        if self.distance < 0.5 {
-            textureForDistanceLabelNode.fontSize = Constants.measureLabelFontSizeSmall
-        } else {
-            textureForDistanceLabelNode.fontSize = Constants.measureLabelFontSizeLarge
-        }
+        textureForDistanceLabelNode.fontSize = CGFloat(min(20 * self.distance + 25, 150))
+        Logger.log("Font size: \(textureForDistanceLabelNode.fontSize)", event: .debug)
+//        if self.distance < 0.5 {
+//            textureForDistanceLabelNode.fontSize = Constants.measureLabelFontSizeSmall
+//        } else {
+//            textureForDistanceLabelNode.fontSize = Constants.measureLabelFontSizeLarge
+//        }
         
         textureForDistanceLabelNode.position.y = height / 2
         textureForDistanceLabelNode.position.x = width / 2
@@ -154,7 +155,7 @@ class MeasureAreaLabel {
     
     private func createLabel(id: String, position:SCNVector3) {
         let width: CGFloat = 500
-        let height = width / 5
+        let height = width / 3
         let skScene = SKScene(size: CGSize(width: width, height: height))
         //        skScene.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
         skScene.backgroundColor = UIColor(white: 0.0, alpha: 0.0)
