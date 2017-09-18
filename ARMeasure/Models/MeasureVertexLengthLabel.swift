@@ -93,7 +93,7 @@ class MeasureVertexLengthLabel: Label {
         skScene.backgroundColor = UIColor(white: 0.0, alpha: 0.0)
         textureForDistanceLabelNode = SKLabelNode(fontNamed: "Menlo-Bold")
         textureForDistanceLabelNode.fontSize = CGFloat(min(20 * self.distance + 25, 150))
-        Logger.log("Font size: \(textureForDistanceLabelNode.fontSize)", event: .debug)
+//        Logger.log("Font size: \(textureForDistanceLabelNode.fontSize)", event: .debug)
 //        if self.distance < 0.5 {
 //            textureForDistanceLabelNode.fontSize = Constants.measureLabelFontSizeSmall
 //        } else {

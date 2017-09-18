@@ -315,7 +315,17 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
         let hitTransform = SCNMatrix4(hitResult.worldTransform)
         let hitVector = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43)
         
-        measure.addMeasureNode(newVector: hitVector)
+        if measure.isEmpty {
+            measure.addMeasureNode(newVector: hitVector)
+        } else {
+            measure.addMeasureNode(newVector:
+                SCNVector3Make(
+                    hitVector.x,
+                    measure.initialMeasureNode!.position.y,
+                    hitVector.z
+                    ))
+        }
+        
         
         if plane == nil {
             switch measureMode {
@@ -328,6 +338,9 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
             default:
                 return
             }
+        } else {
+            
+            Logger.log("initial.y: \(measure.initialMeasureNode!.position.y)\nnode:\(hitVector.y)\nEQUAL:\(measure.initialMeasureNode!.position.y  == hitVector.y) ", event: .debug)
         }
         
     }
