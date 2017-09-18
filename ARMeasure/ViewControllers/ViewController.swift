@@ -219,6 +219,10 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
                 return
             }
         }
+        
+        guard let touch = touches.first else { return }
+        
+        
 //        guard let object = virtualObject else {
 //            return
 //        }
@@ -263,6 +267,34 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
             return
         }
         
+        addMeasureNode(touch)
+	}
+    
+    /**
+     Test if a measure node was hit. If found, the measure will close the last vertex and
+     calculate its area. The new hit to measure will erase all the existing ones.
+     */
+    private func hitMeasureNode(touch: UITouch) -> MeasureNode? {
+        let touchImageCoordinate = touch.location(in: sceneView)
+//        Logger.log("touchImageCoordinate: \(touchImageCoordinate)", event: .debug)
+        
+//        let i = sceneView.projectPoint(measure.measureNodesAsList.first!.position)
+//        Logger.log("initialMeasureNodeImageCoordinate: \(i)", event: .debug)
+//
+        let initialMeasureNodeViewCoordinate = sceneView.projectPoint(measure.initialMeasureNode!.position).cgpoint()
+//        Logger.log("initialMeasureNodeImageCoordinate: \(initialMeasureNodeImageCoordinate)", event: .debug)
+        
+        let distance = touchImageCoordinate.distanceTo(initialMeasureNodeViewCoordinate)
+//        Logger.log("distance: \(distance)", event: .debug)
+        if distance < 20 {
+            return measure.measureNodesAsList.first
+        } else {
+            return nil
+        }
+        
+    }
+	
+    private func addMeasureNode(_ touch: UITouch) {
         // Get objects by hit-test with a corresponding types
         var result: [ARHitTestResult]
         switch measureMode {
@@ -291,32 +323,8 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
                 return
             }
         }
-	}
-    
-    /**
-     Test if a measure node was hit. If found, the measure will close the last vertex and
-     calculate its area. The new hit to measure will erase all the existing ones.
-     */
-    private func hitMeasureNode(touch: UITouch) -> MeasureNode? {
-        let touchImageCoordinate = touch.location(in: sceneView)
-//        Logger.log("touchImageCoordinate: \(touchImageCoordinate)", event: .debug)
-        
-//        let i = sceneView.projectPoint(measure.measureNodesAsList.first!.position)
-//        Logger.log("initialMeasureNodeImageCoordinate: \(i)", event: .debug)
-//
-        let initialMeasureNodeViewCoordinate = sceneView.projectPoint(measure.initialMeasureNode!.position).cgpoint()
-//        Logger.log("initialMeasureNodeImageCoordinate: \(initialMeasureNodeImageCoordinate)", event: .debug)
-        
-        let distance = touchImageCoordinate.distanceTo(initialMeasureNodeViewCoordinate)
-//        Logger.log("distance: \(distance)", event: .debug)
-        if distance < 20 {
-            return measure.measureNodesAsList.first
-        } else {
-            return nil
-        }
         
     }
-	
 	override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
 		if virtualObject == nil {
 			return
