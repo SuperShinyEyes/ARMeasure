@@ -203,7 +203,13 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
 	
 	var currentGesture: Gesture?
 	
+    
+    /**
+     The beginning of each user touch.
+         - If the measure has closed measure, delete all nodes and restart.
+     */
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if measure.isClosed { measure.reset() }
 //        guard let object = virtualObject else {
 //            return
 //        }
@@ -241,6 +247,7 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
          
          */
         
+        // If user touches the initial measure node then get area and exit
         if let _ = hitMeasureNode(touch: touch) {
             measure.getArea()
             return
@@ -255,15 +262,38 @@ class ViewController: UIViewController, UIPopoverPresentationControllerDelegate,
         measure.addMeasureNode(newVector: hitVector)
 	}
     
+    /**
+     Test if a measure node was hit. If found, the measure will close the last vertex and
+     calculate its area. The new hit to measure will erase all the existing ones.
+     */
     private func hitMeasureNode(touch: UITouch) -> MeasureNode? {
+        
+//        let results = sceneView.hitTest(
+//            touch.location(in: sceneView), types: []
+//        )
+        
         let results = sceneView.hitTest(
-            touch.location(in: sceneView), types: []
+            touch.location(in: sceneView), options: nil
         )
-        if let hitResult: ARHitTestResult = results.first {
-            let hitTransform = SCNMatrix4(hitResult.worldTransform)
-            let hitVector = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43)
-            return measure.getMeasureNode(at: hitVector)
+        Logger.log("\(results.count) Graphic nodes were hit.", event: .verbose)
+        for r in results {
+            Logger.log("\(r.node.position) ", event: .info)
         }
+
+        if let hitResult: SCNHitTestResult = results.first {
+            if let node = hitResult.node as? MeasureNode {
+                Logger.log("Clicked the initial node. Closing", event: .info)
+                return node
+            }
+//            let hitTransform = SCNMatrix4(hitResult.worldTransform)
+//            let hitVector = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43)
+//            return measure.getMeasureNode(at: hitVector)
+        }
+//        if let hitResult: ARHitTestResult = results.first {
+//            let hitTransform = SCNMatrix4(hitResult.worldTransform)
+//            let hitVector = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43)
+//            return measure.getMeasureNode(at: hitVector)
+//        }
         print("NO MeasureNode HIT")
         return nil
         

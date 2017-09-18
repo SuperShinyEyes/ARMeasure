@@ -33,6 +33,7 @@ class Measure {
         return measureElementsAsList.map { $0.node }
     }
     private var _isClosed = false
+    var isClosed: Bool { return _isClosed }
     private var _is2D = true {
         didSet {
             if !_is2D {
@@ -170,6 +171,8 @@ extension Measure {
             let nodeStart = measureElementsAsList[measureElementsAsList.count - 2].node
             let nodeEnd = measureElementsAsList[measureElementsAsList.count - 1].node
             addMeasureVertex(start: nodeStart.position, end: nodeEnd.position)
+        } else {
+            Logger.log("The initial measure node: \(measureNode.position)", event: .info)
         }
         
         if Settings.isDebugging {
@@ -226,8 +229,8 @@ extension Measure {
             n1: measureElementsAsList[count-2].node.position,
             n2: measureElementsAsList[count-1].node.position,
             n3: nodeNew)
-        print("normal: \(normal)")
-        print("normalnew: \(normalNew)")
+//        print("normal: \(normal)")
+//        print("normalnew: \(normalNew)")
         return normal.isParallelTo(to: normalNew)
     }
     
